@@ -1,2 +1,4 @@
 # TubesAlstrukdat
  tubestubestubes
+ |NIM|NAMA|
+ 

@@ -35,13 +35,23 @@ int strToInt (Word kata){
     return hasil;
 }
 
+boolean isInt (Word currentWord){
+    /* Mengembalikan true jika kata berupa integer */
+    for (int i = 0; i < currentWord.Length; i++){
+        if (currentWord.TabWord[i] < 48 || currentWord.TabWord[i] > 57){
+            return 0;
+        }
+    }
+    return 1;
+}
+
 Matrix getPeta (char namaFile[]){
     /* Membaca file peta.txt untuk mendapatkan peta */
     Matrix peta;
     Stack Sm, Sn;
     int m;
     int n;
-    
+
     STARTWORD(namaFile);
 
     m = strToInt(currentWord);

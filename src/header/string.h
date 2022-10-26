@@ -15,43 +15,40 @@ boolean cekSama (Word masukan, char pembanding[]){
     return true;
 }
 
+int strToInt (Word kata){
+    /* Mengembalikan bentuk integer dari kata */
+    /* Prekondisi: kata merupakan string positif misal "16" */
+    int hasil = 0;
+    int val;
+    int pengali = 1;
+    Stack S;
+    CreateEmpty(&S);
+    for (int i = 0; i < kata.Length; i++){
+        Push(&S, currentWord.TabWord[i] - 48);
+    }
+    while (!IsEmpty(S))
+    {
+        Pop(&S,&val);
+        hasil += val * pengali;
+        pengali *= 10;
+    }
+    return hasil;
+}
+
 Matrix getPeta (char namaFile[]){
     /* Membaca file peta.txt untuk mendapatkan peta */
     Matrix peta;
     Stack Sm, Sn;
-    int m = 0;
-    int n = 0;
-    int val;
-    int pengali = 1;
-    CreateEmpty(&Sm);
-    CreateEmpty(&Sn);
+    int m;
+    int n;
+    
     STARTWORD(namaFile);
 
-    for (int i = 0; i < currentWord.Length; i++){
-        // Untuk mendapatkan dimensi m matrix
-        Push(&Sm, currentWord.TabWord[i] - 48);
-    }
-
-    while (!IsEmpty(Sm)){
-        Pop(&Sm, &val);
-        m += val * pengali;
-        pengali *= 10;
-    }
+    m = strToInt(currentWord);
 
     ADVWORD();
-    // Saat ini telah didapat jumlah baris matrix
 
-    for (int i = 0; i < currentWord.Length; i++){
-        // Untuk mendapatkan dimensi m matrix
-        Push(&Sn, currentWord.TabWord[i] - 48);
-    }
-
-    pengali = 1;
-    while (!IsEmpty(Sn)){
-        Pop(&Sn, &val);
-        n += val * pengali;
-        pengali *= 10;
-    }
+    n = strToInt(currentWord);
 
     ADVWORD();
     // Saat ini telah didapat dimensi matrix yaitu m x n

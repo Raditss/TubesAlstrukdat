@@ -8,6 +8,7 @@
 
 #define NMax 50
 #define BLANK ' '
+#define ENTER '\n'
 
 typedef struct
 {
@@ -26,7 +27,7 @@ void IgnoreBlanks(){
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : currentChar sembarang
    F.S. : currentChar ≠ BLANK atau currentChar = MARK */
-    while ((currentChar == BLANK) || (currentChar == 10)){
+    while ((currentChar == BLANK) || (currentChar == ENTER)){
         ADV();
     }
 
@@ -71,7 +72,7 @@ void CopyWord(){
           currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
     int i = 0;
-    while ((currentChar != BLANK ) && (currentChar != MARK) && (i < NMax)){
+    while ((currentChar != BLANK ) && (currentChar != MARK) && (i < NMax) && (currentChar != ENTER)){
         currentWord.TabWord[i] = currentChar;
         ADV();
         i++;

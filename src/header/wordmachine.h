@@ -89,4 +89,12 @@ void SaveWord(char *tujuan, int baris, Word asal){
     }
 }
 
+void DisplayWord(Word currentWord){
+    /* Melakukan print terhadap current word */
+    for (int i = 0; i < currentWord.Length; i++){
+        printf("%c",currentWord.TabWord[i]);
+    }
+    printf("\n");
+}
+
 #endif

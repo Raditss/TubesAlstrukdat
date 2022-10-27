@@ -45,6 +45,32 @@ boolean isInt (Word currentWord){
     return 1;
 }
 
+Word mergeWord (Word kata1, Word kata2){
+    /* Menggabungkan kata1 dan kata2 yang dipisahkan oleh spasi menjadi kata3 */
+    /* Mengembalikan kata3 */
+    Word kata3 = kata1;
+
+    Len(kata3)++;
+    HurufKe(kata3,Len(kata3)-1) = BLANK;
+    for (int j = 0; j < kata2.Length; j++){
+        Len(kata3)++;
+        HurufKe(kata3,Len(kata3)-1) = kata2.TabWord[j];
+    }
+    return kata3;
+}
+
+void pMergeWord (Word *kata1, Word kata2){
+    /* I.S. kata1 sembarang */
+    /* F.S. kata1 dimerge dengan kata2 dan dipisahkan oleh spasi */
+    Len(*kata1)++;
+    HurufKe(*kata1 , Len(*kata1) - 1) = BLANK;
+
+    for (int i = 0; i < Len(kata2); i++){
+        Len(*kata1)++;
+        HurufKe(*kata1 , Len(*kata1) - 1) = HurufKe(kata2,i);
+    }
+}
+
 Matrix getPeta (char namaFile[]){
     /* Membaca file peta.txt untuk mendapatkan peta */
     Matrix peta;

@@ -16,6 +16,9 @@ typedef struct
    int Length;
 } Word;
 
+#define Len(w) (w).Length
+#define HurufKe(w,i) (w).TabWord[i]
+
 /* State Mesin Word */
 static boolean endWord;
 static Word currentWord;
@@ -95,6 +98,12 @@ void DisplayWord(Word currentWord){
         printf("%c",currentWord.TabWord[i]);
     }
     printf("\n");
+}
+
+void createEmptyWord(Word *kata){
+    /* I.S. currentWord sembarang */
+    /* F.S. currentWord memiliki length 0 */
+    Len(*kata) = 0;
 }
 
 #endif

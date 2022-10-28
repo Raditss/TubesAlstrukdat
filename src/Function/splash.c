@@ -18,7 +18,7 @@ void splash()
         printf ("%c", c);
         c = fgetc(fptr);
     }
-  
+
     fclose(fptr);
 }
 

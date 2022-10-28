@@ -4,45 +4,14 @@
 #define makanan_H
 
 #include "time.h"
-#include "wordmachine.h"
+#include "string.h"
 #include "stackint.h"
+#include "simulator.h"
 
-/* Definisi makanan: */
-typedef struct {
-    int id;
-    Word nama;
-    TIME expired;
-    TIME deliveryTime;
-    Word lokasiAksi; // lokasi dilakukannya aksi untuk mendapat makanan tsb.
-} Makanan;
-
-#define ID(M) (M).id
-#define NAMA(M) (M).nama
-#define EXP(M) (M).expired
-#define DTIME(M) (M).deliveryTime
-#define LOC(M) (M).lokasiAksi
-
-int strToInt (Word kata){
-    /* Mengembalikan bentuk integer dari kata */
-    /* Prekondisi: kata merupakan string positif misal "16" */
-    int hasil = 0;
-    int val;
-    int pengali = 1;
-    Stack S;
-    CreateEmpty(&S);
-    for (int i = 0; i < kata.Length; i++){
-        Push(&S, currentWord.TabWord[i] - 48);
-    }
-    while (!IsEmpty(S))
-    {
-        Pop(&S,&val);
-        hasil += val * pengali;
-        pengali *= 10;
-    }
-    return hasil;
-}
-
-Makanan createMakanan (char namaFile[]){
+PrioQueueTime createMakanan (char namaFile[]){
+    PrioQueueTime Q;
+    FoodType foodElmt;
+    MakeEmptyFood(&Q, CAPACITY);
     STARTWORD(namaFile);
     Makanan m;
     int n = strToInt(currentWord);
@@ -51,8 +20,9 @@ Makanan createMakanan (char namaFile[]){
         ID(m) = strToInt(currentWord);
         ADVWORD();
         Word name = currentWord;
+        ADVWORD();
         while (!(isInt(currentWord))){
-            pmergeword(&name,currentWord);
+            name = mergeWord(name,currentWord);
             ADVWORD();
         }
         NAMA(m) = name;
@@ -88,8 +58,13 @@ Makanan createMakanan (char namaFile[]){
         
         // Untuk lokasi aksi
         LOC(m) = currentWord;
+
+        TIME_LEFT(foodElmt) = TIMEToMinute( EXP(m) );
+        Info(foodElmt) = m;
+
+        EnqueueFood(&Q, foodElmt);
     }
-    return m;
+    return Q;
 }
 
 int getId (char namaFile[]){

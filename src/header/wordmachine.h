@@ -52,6 +52,22 @@ void STARTWORD(char namaFile[]){
     }
 }
 
+void STARTWORDINPUT(){
+/* I.S. : currentChar sembarang
+   F.S. : endWord = true, dan currentChar = MARK;
+          atau endWord = false, currentWord adalah kata yang sudah diakuisisi,
+          currentChar karakter pertama sesudah karakter terakhir kata */
+    STARTINPUT();
+    IgnoreBlanks();
+
+    if (currentChar == MARK){ // marknya titik
+        endWord = true;
+    } else {
+        endWord = false;
+        CopyWord(); 
+    }
+}
+
 void ADVWORD(){
 /* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi
    F.S. : currentWord adalah kata terakhir yang sudah diakuisisi,

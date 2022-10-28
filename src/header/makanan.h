@@ -1,17 +1,13 @@
-/* File : makanan.h */
-
-#ifndef makanan_H
-#define makanan_H
-
-#include "waktu.h"
+#ifndef MAKANAN_H
+#define MAKANAN_H
 #include "wordmachine.h"
-
+#include "time.h"
 /* Definisi makanan: */
 typedef struct {
     int id;
     Word nama;
-    Waktu expired;
-    Waktu deliveryTime;
+    TIME expired;
+    TIME deliveryTime;
     Word lokasiAksi; // lokasi dilakukannya aksi untuk mendapat makanan tsb.
 } Makanan;
 
@@ -20,8 +16,5 @@ typedef struct {
 #define EXP(M) (M).expired
 #define DTIME(M) (M).deliveryTime
 #define LOC(M) (M).lokasiAksi
-
-
-
 
 #endif

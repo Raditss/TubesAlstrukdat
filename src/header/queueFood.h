@@ -4,7 +4,7 @@
 #ifndef _QUEUE_FOOD_
 #define _QUEUE_FOOD_
 
-#define Nil -1
+#define NilFood -1
 #define CAPACITY 100
 
 typedef struct
@@ -31,13 +31,13 @@ typedef struct {
 #define Tail(Q)         (Q).TAIL
 #define InfoHead(Q)     (Q).T[(Q).HEAD]
 #define InfoTail(Q)     (Q).T[(Q).TAIL]
-#define MaxElmtFood(Q)        (Q).MaxElmtFood
+#define MaxElmtFood(Q)  (Q).MaxElmtFood
 #define Elmt(Q,i)       (Q).T[(i)]
 
 /* ********* Prototype ********* */
 boolean IsEmptyFood (PrioQueueTime Q){
 /* Mengirim true jika Q kosong: lihat definisi di atas */
-    return (Head(Q) == Nil) && (Tail(Q) == Nil);
+    return (Head(Q) == NilFood) && (Tail(Q) == NilFood);
 }
 
 int NBElmtFood (PrioQueueTime Q){
@@ -139,23 +139,27 @@ void PrintPrioQueueTimeFood (PrioQueueTime Q){
 <time-n> <elemen-n>
 #
 */
+    PrioQueueTime Q2;
     FoodType val;
     PrioQueueTime temp = Q;
     if (!IsEmptyFood(Q)){
         while (!IsEmptyFood(temp)){
             DequeueFood(&temp, &val);
-            printf("Sisa waktu dalam menit: %d\n", TIME_LEFT(val));
+
+            printf("Waktu makanan expired: ");
+            TulisTIME(MinuteToTIME(TIME_LEFT(val)));
             printf("ID = %d\n", ID(Info(val)));
             DisplayWord(NAMA(Info(val)));
             TulisTIME(EXP(Info(val)));
-            printf("\n");
             TulisTIME(DTIME(Info(val)));
-            printf("\n");
             DisplayWord(LOC(Info(val)));
             printf("\n");
+            
+            /* Tunggu malik */
         }
     }
     printf("#\n");
+
 }
 
 #endif

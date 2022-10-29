@@ -43,5 +43,13 @@ int main(){
     printf("Gabungan katanya adalah:");
     DisplayWord(gabungan);
     printf("================================================\n");
+
+    Word kataBaru = strToWord("saya mau makan.");
+    DisplayWord(kataBaru);
+    char *strBaru = wordToStr(kataBaru);
+    printf("%s\n", strBaru);
+
+
+
     return 0;
 }

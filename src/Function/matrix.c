@@ -26,8 +26,8 @@ int main(){
     printf("================================================\n");
 
     Posisi p = getPosisi(mNew);
-    printf("Posisi S dalam matrix adalah pada (%d,%d)\n", ROW(p)-1,COL(p)-1);
-    isClose(m,'D') ? printf("S dekat dengan D\n") : printf("S tidak dekat dengan D");
+    printf("Posisi S dalam matrix adalah pada (%d,%d)\n", ROW_POSISI(p)-1,COL_POSISI(p)-1);
+    isClose(m,'D') ? printf("S dekat dengan D\n") : printf("S tidak dekat dengan D\n");
     Word command;
     command.Length = 4;
     command.TabWord[0] = 'E';

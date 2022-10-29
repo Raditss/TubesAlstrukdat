@@ -4,7 +4,7 @@
 #ifndef _QUEUE_FOOD_
 #define _QUEUE_FOOD_
 
-#define Nil -1
+#define NilFood -1
 #define CAPACITY 100
 
 typedef struct
@@ -37,7 +37,7 @@ typedef struct {
 /* ********* Prototype ********* */
 boolean IsEmptyFood (PrioQueueTime Q){
 /* Mengirim true jika Q kosong: lihat definisi di atas */
-    return (Head(Q) == Nil) && (Tail(Q) == Nil);
+    return (Head(Q) == NilFood) && (Tail(Q) == NilFood);
 }
 
 int NBElmtFood (PrioQueueTime Q){
@@ -145,21 +145,21 @@ void PrintPrioQueueTimeFood (PrioQueueTime Q){
     if (!IsEmptyFood(Q)){
         while (!IsEmptyFood(temp)){
             DequeueFood(&temp, &val);
-            printf("Sisa waktu dalam menit: %d\n", TIME_LEFT(val));
+
+            printf("Waktu makanan expired: ");
+            TulisTIME(MinuteToTIME(TIME_LEFT(val)));
             printf("ID = %d\n", ID(Info(val)));
             DisplayWord(NAMA(Info(val)));
             TulisTIME(EXP(Info(val)));
-            printf("\n");
             TulisTIME(DTIME(Info(val)));
-            printf("\n");
             DisplayWord(LOC(Info(val)));
             printf("\n");
-            EnqueueFood(&Q2,val);
+            
             /* Tunggu malik */
         }
     }
     printf("#\n");
-    Q = Q2;
+
 }
 
 #endif

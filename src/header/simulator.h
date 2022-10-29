@@ -41,6 +41,7 @@ void addInventory (Simulator *sim, Makanan food, TIME realTime, NOTIF_STACK *NS)
     Word diterima = strToWord("sudah diterima oleh BNMO.");
     notifType notifikasi;
     notifikasi = mergeWord(NAMA(food), diterima);
+    PushNotif(NS,notifikasi);
     TIME_LEFT(foodType) = TIMEToMinute(EXP(food)) + TIMEToMinute(realTime);
     Info(foodType) = food;
 
@@ -64,7 +65,7 @@ void removeExpired (Simulator *sim, TIME realTime, NOTIF_STACK *NS){
     notifType notifikasi;
     Word namaTrashFood;
     Word kadaluarsa = strToWord("telah kadaluarsa :(.");
-    while (TIMEToMinute(EXP(Info(InfoHead(UserInventory(*sim))))) <= TIMEToMinute(realTime))
+    while (TIME_LEFT(InfoHead(UserInventory(*sim))) <= TIMEToMinute(realTime))
     {
         DequeueFood(&UserInventory(*sim), &val);
         namaTrashFood = NAMA(Info(val));
@@ -75,7 +76,9 @@ void removeExpired (Simulator *sim, TIME realTime, NOTIF_STACK *NS){
 
 void displaySimulator (Simulator sim){
     /* Melakukan display pada simulator saat ini */
+    printf("Nama simulator: ");
     DisplayWord(UserName(sim));
+    printf("Posisi simulator: ");
     DisplayPosisi(UserLocate(sim));
     PrintPrioQueueTimeFood(UserInventory(sim)); 
 }

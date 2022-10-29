@@ -1,4 +1,6 @@
 #include "string.h"
+#include "point.h"
+
 
 /* ********** Definisi TYPE Matrix dengan Index dan elemen CHAR ********** */
 
@@ -11,11 +13,6 @@
 
 typedef int IdxType; /* Index baris, kolom */
 typedef char ElType; /* Tipe elemen matrix char */
-typedef struct
-{
-    IdxType row; /* posisi baris ke- matrix */
-    IdxType col; /* posisi kolom ke- matrix */
-} Posisi; 
 
 typedef struct
 {
@@ -31,8 +28,6 @@ typedef struct
 #define ROW_EFF(M) (M).rowEff
 #define COL_EFF(M) (M).colEff
 #define ELMT(M, i, j) (M).mem[(i)][(j)]
-#define ROW(P) (P).row
-#define COL(P) (P).col
 
 boolean cekSama (Word masukan, char pembanding[]);
 
@@ -110,6 +105,20 @@ void displayMatrix(Matrix m)
     }
 }
 
+Posisi getPosisi (Matrix M){
+    /* Mencari posisi S, Matrix M sudah di createBorder */
+    Posisi P;
+    for (int i = 1; i < ROW_EFF(M) - 1; i++){
+        for (int j = 0; j < COL_EFF(M) - 1; j++){
+            if (ELMT(M,i,j) == 'S'){
+                ROW_POSISI(P) = i;
+                COL_POSISI(P) = j;
+            }
+        }
+    }
+    return P;
+}
+
 Matrix createBorder (Matrix M){
     /* Matrix sembarang */
     /* Matrix diberi border * dan mengubah '#' menjadi ' ' */
@@ -137,60 +146,57 @@ Matrix createBorder (Matrix M){
     return mNew;
 }
 
-Posisi getPosisi (Matrix M){
-    /* Mencari posisi S, Matrix M sudah di createBorder */
-    Posisi P;
-    for (int i = 1; i < ROW_EFF(M) - 1; i++){
-        for (int j = 0; j < COL_EFF(M) - 1; j++){
-            if (ELMT(M,i,j) == 'S'){
-                ROW(P) = i;
-                COL(P) = j;
-            }
-        }
-    }
-    return P;
-}
-
-void moveCommand (Matrix *M, Word command){
+boolean moveCommand (Matrix *M, Word command){
     /* I.S. command terdefinisi untuk move */
     /* F.S. jika move valid maka S akan bergeser sesuai arah command */
+    boolean valid;
     Posisi P = getPosisi(*M);
     if (cekSama(command,"NORTH")){
-        if (ELMT(*M, ROW(P) - 1, COL(P)) != ' '){
-            printf("Gagal berpindah\n");
+        if (ELMT(*M, ROW_POSISI(P) - 1, COL_POSISI(P)) != ' '){
+            printf("Gagal berpindah\n"); 
+            valid = 0;
         } else {
-            ELMT(*M, ROW(P) - 1, COL(P)) = 'S';
-            ELMT(*M, ROW(P), COL(P)) = ' ';
-            ROW(P)--;
+            ELMT(*M, ROW_POSISI(P) - 1, COL_POSISI(P)) = 'S';
+            ELMT(*M, ROW_POSISI(P), COL_POSISI(P)) = ' ';
+            ROW_POSISI(P)--;
+            valid = 1;
         }
     } else if (cekSama(command, "SOUTH")){
-        if (ELMT(*M, ROW(P) + 1, COL(P)) != ' '){
+        if (ELMT(*M, ROW_POSISI(P) + 1, COL_POSISI(P)) != ' '){
             printf("Gagal berpindah\n");
+            valid = 0;
         } else {
-            ELMT(*M, ROW(P) + 1, COL(P)) = 'S';
-            ELMT(*M, ROW(P), COL(P)) = ' ';
-            ROW(P)++;
+            ELMT(*M, ROW_POSISI(P) + 1, COL_POSISI(P)) = 'S';
+            ELMT(*M, ROW_POSISI(P), COL_POSISI(P)) = ' ';
+            ROW_POSISI(P)++;
+            valid = 1;
         }
     } else if (cekSama(command, "EAST")){
-        if (ELMT(*M, ROW(P), COL(P) + 1) != ' '){
+        if (ELMT(*M, ROW_POSISI(P), COL_POSISI(P) + 1) != ' '){
             printf("Gagal berpindah\n");
+            valid = 0;
         } else {
-            ELMT(*M, ROW(P), COL(P) + 1) = 'S';
-            ELMT(*M, ROW(P), COL(P)) = ' ';
-            COL(P)++;
+            ELMT(*M, ROW_POSISI(P), COL_POSISI(P) + 1) = 'S';
+            ELMT(*M, ROW_POSISI(P), COL_POSISI(P)) = ' ';
+            COL_POSISI(P)++;
+            valid = 1;
         }
     } else if (cekSama(command, "WEST")){
-        if (ELMT(*M, ROW(P), COL(P) - 1) != ' '){
+        if (ELMT(*M, ROW_POSISI(P), COL_POSISI(P) - 1) != ' '){
             printf("Gagal berpindah\n");
+            valid = 0;
         } else {
-            ELMT(*M, ROW(P), COL(P) - 1) = 'S';
-            ELMT(*M, ROW(P), COL(P)) = ' ';
-            COL(P)--;
+            ELMT(*M, ROW_POSISI(P), COL_POSISI(P) - 1) = 'S';
+            ELMT(*M, ROW_POSISI(P), COL_POSISI(P)) = ' ';
+            COL_POSISI(P)--;
+            valid = 1;
         }
     } else {
         printf("Masukan tidak valid!\n");
+        valid = 0;
     }
-    printf("BNMO di posisi (%d , %d)\n", ROW(P) - 1, COL(P) - 1);
+    DisplayPosisi(P);
+    return valid;
 }
 
 boolean isClose (Matrix M, char c){
@@ -198,8 +204,8 @@ boolean isClose (Matrix M, char c){
     /* Mengembalikan true jika S tepat di kanan/kiri/atas/bawah c */
     /* Dapat digunakan saat ingin melakukan sesuatu di tempat tertentu */
     Posisi pos = getPosisi(M);
-    int x = ROW(pos);
-    int y = COL(pos);
+    int x = ROW_POSISI(pos);
+    int y = COL_POSISI(pos);
     return (ELMT(M,x,y+1) == c) ||
            (ELMT(M,x+1,y) == c) ||
            (ELMT(M,x,y-1) == c) ||

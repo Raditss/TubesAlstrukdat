@@ -31,7 +31,7 @@ typedef struct {
 #define Tail(Q)         (Q).TAIL
 #define InfoHead(Q)     (Q).T[(Q).HEAD]
 #define InfoTail(Q)     (Q).T[(Q).TAIL]
-#define MaxElmtFood(Q)        (Q).MaxElmtFood
+#define MaxElmtFood(Q)  (Q).MaxElmtFood
 #define Elmt(Q,i)       (Q).T[(i)]
 
 /* ********* Prototype ********* */
@@ -139,6 +139,7 @@ void PrintPrioQueueTimeFood (PrioQueueTime Q){
 <time-n> <elemen-n>
 #
 */
+    PrioQueueTime Q2;
     FoodType val;
     PrioQueueTime temp = Q;
     if (!IsEmptyFood(Q)){
@@ -153,9 +154,12 @@ void PrintPrioQueueTimeFood (PrioQueueTime Q){
             printf("\n");
             DisplayWord(LOC(Info(val)));
             printf("\n");
+            EnqueueFood(&Q2,val);
+            /* Tunggu malik */
         }
     }
     printf("#\n");
+    Q = Q2;
 }
 
 #endif

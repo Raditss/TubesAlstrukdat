@@ -101,5 +101,28 @@ Matrix getPeta (char namaFile[]){
     return peta;
 }
 
+Word strToWord (char s[]){
+    /* Mengubah string s menjadi word */
+    Word kata;
+    createEmptyWord(&kata);
+    int i = 0;
+    while (s[i] != MARK)
+    {
+        Len(kata)++;
+        HurufKe(kata, i) = s[i];
+        i++;
+    }
+    return kata;
+}
+
+const char * wordToStr(Word kata){
+    /* Mengubah Word menjadi string */
+    // char str[Len(kata)];
+    // for (int i = 0; i < Len(kata); i++){
+    //     str[i] = HurufKe(kata, i);
+    // }
+    char * str = kata.TabWord;
+    return str;
+}
 
 #endif

@@ -1,0 +1,236 @@
+47
+1
+Beras
+30 0 0
+0 0 20
+Buy
+2
+Santan
+12 0 0
+0 0 10
+Buy
+3
+Kunyit
+17 15 0
+0 0 5
+Buy
+4
+Tepung
+25 10 0
+0 0 10
+Buy
+5
+Minyak Goreng
+10 0 0
+0 0 15
+Buy
+6
+Ayam Mentah
+22 0 0
+0 0 30
+Buy
+7
+Cabai
+3 0 0
+0 0 5
+Buy
+8
+Bawang
+0 12 0
+0 0 5
+Buy
+9
+Tahu Mentah
+5 10 0
+0 0 20
+Buy
+10
+Tempe Mentah
+5 10 0
+0 0 20
+Buy
+11
+Telur
+5 10 0
+0 0 5
+Buy
+12
+Bakso Mentah
+8 20 0
+0 0 25
+Buy
+13
+Sosis Mentah
+8 20 0
+0 0 25
+Buy
+14
+Air
+50 0 0
+0 0 5
+Buy
+15
+Teh Sachet
+35 0 0
+0 0 5
+Buy
+16
+Kopi Sachet
+35 0 0
+0 0 5
+Buy
+17
+Es Batu Bongkahan
+0 0 30
+0 0 5
+Buy
+18
+Nasi Putih
+1 12 0
+0 0 35
+Boil
+19
+Nasi Kuning
+1 0 0
+0 0 15
+Mix
+20
+Nasi Uduk
+1 0 0	
+0 1 0
+Mix
+21
+Nasi Goreng
+0 18 0
+0 0 20
+Fry
+22
+Ayam Potong
+1 5 0
+0 0 0
+Chop
+23
+Ayam Tepung
+0 15 0
+0 0 0
+Mix
+24
+Ayam Goreng
+0 12 0
+0 0 10
+Fry
+25
+Sambal
+1 12 0
+0 0 0
+Mix
+26
+Sambal Goreng
+0 10 0
+0 0 5
+Fry
+27
+Tahu Goreng
+0 20 0
+0 0 8
+Fry
+28
+Tempe Goreng
+0 20 0
+0 0 8
+Fry
+29
+Telur Dadar
+0 16 0
+0 0 7
+Fry
+30
+Telur Rebus
+1 21 30
+0 0 25
+Boil
+31
+Telur Balado
+0 15 30
+0 0 5
+Mix
+32
+Bakso Goreng
+2 3 0
+0 0 0
+Fry
+33
+Sosis Goreng
+2 3 0
+0 0 0
+Fry
+34
+Air Panas
+0 0 30
+0 0 0
+Boil
+35
+Teh Panas
+0 0 25
+0 0 2
+Mix
+36
+Kopi Panas
+0 0 25
+0 0 2
+Mix
+37
+Es Batu
+0 0 28
+0 0 0
+Chop
+38
+Es Teh
+0 0 25
+0 0 2
+Mix
+39
+Kopi Es
+0 0 25
+0 0 2
+Mix
+40
+Ayam Goreng Extra Sambal
+0 11 30
+0 0 15
+Mix
+41
+Nasi Putih dengan Ayam Goreng Extra Sambal
+0 11 0
+0 0 20
+Mix
+42
+Nasi Kuning dengan Ayam Goreng Extra Sambal
+0 8 0
+0 0 20
+Mix
+43
+Nasi Uduk dengan Ayam Goreng Extra Sambal
+0 8 0
+0 0 20
+Mix
+44
+Nasi Goreng dengan Bakso
+0 15 30
+0 0 20
+Mix
+45
+Nasi Goreng dengan Sosis
+0 15 30
+0 0 20
+Mix
+46
+Nasi Goreng dengan Telur Dadar
+0 15 30
+0 0 20
+Mix
+47
+Nasi Kuning dengan Telur Balado
+0 8 0
+0 0 20
+Mix.

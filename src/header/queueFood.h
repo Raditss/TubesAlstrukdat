@@ -162,5 +162,41 @@ void PrintPrioQueueTimeFood (PrioQueueTime Q){
 
 }
 
+void IsValidFood (PrioQueueTime *P) {
+    // I.S P terdefinisi
+    // F.S makanan yang expired dihapus dari P lalu di-print.
+    FoodType val;
+    PrioQueueTime temp = *P;
+    if (!IsEmptyFood(*P)){
+        while (!IsEmptyFood(temp)){
+            DequeueFood(&temp, &val);
+            if (TIME_LEFT(val) <= 0) {
+                printf("Makanan %s telah basi.\n", NAMA(Info(val)).TabWord);
+                DeAlokasiFood(&val);
+            } else {
+                EnqueueFood(P, val);
+            }
+        }
+    }
+}
+
+void MinusTime(PrioQueueTime *P, int selama_apa) {
+    // I.S P terdefinisi
+    // F.S semua time_left makanan di P dikurangi selama_apa
+    FoodType val;
+    PrioQueueTime temp = *P;
+    if (!IsEmptyFood(*P)){
+        while (!IsEmptyFood(temp)){
+            DequeueFood(&temp, &val);
+            TIME_LEFT(val) -= selama_apa;
+            if (TIME_LEFT(val) <= 0) {
+                DeAlokasiFood(&val);
+            } else {
+                EnqueueFood(P, val);
+            }
+        }
+    }
+}
+
 #endif
 

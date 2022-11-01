@@ -1,7 +1,7 @@
 # Tugas Besar IF2110/Algoritma dan Struktur Data
 program simulasi memasak berbasis CLI (command-line interface) yang dibuat dalam bahasa C.
 
-## Contributors E (E for EZ)
+## Kelompok E (E for EZ)
 | Nama Anggota   | NIM | Kontribusi |
 | :---        |    :----:   | :---: |
 | Jason Rivalino| 13521008 | |

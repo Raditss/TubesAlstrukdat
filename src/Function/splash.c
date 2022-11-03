@@ -22,8 +22,3 @@ void splash()
     fclose(fptr);
 }
 
-int main()
-{
-    splash();
-    return 0;
-}

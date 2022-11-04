@@ -110,7 +110,7 @@ void mergeTree(Akar *A, Akar child){
     /* F.S. child menjadi bagian dari A setelah di merge */
     Address cabang = findValTree(*A, INFO_TREE(child));
     CHILD(cabang) = CHILD(child);
-    free(child);
+    // free(child); //ini yang bikin segmentation fault
 }
 
 void createKumpulanTree(KumpulanTree *KT){

@@ -3,10 +3,10 @@
 int main(){
     KumpulanTree KT;
     createKumpulanTree(&KT);
-    // printf("1. TULISAN INI HARUS TERLIHAT\n");
+    printf("1. TULISAN INI HARUS TERLIHAT\n");
 
     resepReader(&KT, "../../bin/resepmakanan.txt"); /* Baca file */
-    // printf("\t--- %d ---\n", INFO_TREE(SIBLING(CHILD(ELMT_TREE(KT,29)))));
+    printf("\t--- %d ---\n", INFO_TREE(SIBLING(CHILD(ELMT_TREE(KT,29)))));
 
     KumpulanTree AdvancedTree;
     createKumpulanTree(&AdvancedTree);
@@ -38,5 +38,21 @@ int main(){
     printf("\tJumlah resep utama adalah = %d\n", lengthKumpulanTree(AdvancedTree));
 
     printf("7. TULISAN INI HARUS TERLIHAT\n");
+
+    for (int i = 0; i < 11; i++){
+        printf("\tTree ke %d adalah %d\n", i+1,INFO_TREE(ELMT_TREE(AdvancedTree,i)));
+    }
+
+    printf("8. TULISAN INI HARUS TERLIHAT\n");
+
+    printf("\t5 tingkat di bawah id 43 adalah %d\n ", INFO_TREE(
+                                                        CHILD( // anaknya dari
+                                                        CHILD( // anaknya dari
+                                                        CHILD( // anaknya dari
+                                                        SIBLING(CHILD( // saudara dari anaknya dari
+                                                        CHILD( // anaknya bapak
+                                                            ELMT_TREE(AdvancedTree,6)))))))));
+
+    printf("9. TULISAN INI HARUS TERLIHAT\n");
     return 0;
 }

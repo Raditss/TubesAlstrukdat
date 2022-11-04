@@ -125,4 +125,17 @@ const char * wordToStr(Word kata){
     return str;
 }
 
+boolean isWordEqual(Word kata1, Word kata2){
+    /* Mengembalikan true jika kedua kata sama */
+    if (Len(kata1) != Len(kata2)){
+        return false;
+    }
+    for (int i = 0; i < Len(kata1); i++){
+        if (HurufKe(kata1,i) != HurufKe(kata2,i)){
+            return false;
+        }
+    }
+    return true;
+}
+
 #endif

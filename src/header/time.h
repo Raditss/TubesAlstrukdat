@@ -90,6 +90,15 @@ void TulisTIME (TIME T)
 {
     printf("%02d:%02d:%02d\n", Day(T), Hour(T), Minute(T));
 }
+
+void TulisTIMEnoEnter (TIME T)
+/* I.S. : T sembarang */
+/* F.S. : Nilai T ditulis dg format DD:HH:MM */
+/* Proses : menulis nilai setiap komponen T ke layar dalam format DD:HH:MM
+   tanpa karakter apa pun di depan atau belakangnya, termasuk spasi, enter, dll.*/ 
+{
+    printf("%02d:%02d:%02d", Day(T), Hour(T), Minute(T));
+}
 /* ***************************************************************** */
 /* KELOMPOK KONVERSI TERHADAP TYPE                                   */
 /* ***************************************************************** */

@@ -116,6 +116,13 @@ void DisplayWord(Word currentWord){
     printf("\n");
 }
 
+void DisplayWordNoEnter(Word currentWord){
+    /* Melakukan print terhadap current word */
+    for (int i = 0; i < currentWord.Length; i++){
+        printf("%c",currentWord.TabWord[i]);
+    }
+}
+
 void createEmptyWord(Word *kata){
     /* I.S. currentWord sembarang */
     /* F.S. currentWord memiliki length 0 */

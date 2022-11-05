@@ -172,7 +172,7 @@ void IsValidFood (PrioQueueTime *P) {
             DequeueFood(&temp, &val);
             if (TIME_LEFT(val) <= 0) {
                 printf("Makanan %s telah basi.\n", NAMA(Info(val)).TabWord);
-                DeAlokasiFood(&val);
+                // DeAlokasiFood(&val);
             } else {
                 EnqueueFood(P, val);
             }
@@ -190,7 +190,7 @@ void MinusTime(PrioQueueTime *P, int selama_apa) {
             DequeueFood(&temp, &val);
             TIME_LEFT(val) -= selama_apa;
             if (TIME_LEFT(val) <= 0) {
-                DeAlokasiFood(&val);
+                // DeAlokasiFood(&val);
             } else {
                 EnqueueFood(P, val);
             }

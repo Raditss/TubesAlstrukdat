@@ -11,23 +11,23 @@
 typedef struct
 {
     Word NamaPengguna;
-    Posisi LokasiPengguna;
+    Matrix LokasiPengguna;
     PrioQueueTime Inventory;
 } Simulator;
 
 #define UserName(s)         (s).NamaPengguna
-#define UserLocate(s)       (s).LokasiPengguna
+#define UserPeta(s)         (s).LokasiPengguna
 #define UserInventory(s)    (s).Inventory
 
 
-void createSimulator(Simulator *sim, Word nama, Posisi awal){
+void createSimulator(Simulator *sim, Word nama, Matrix awal){
     /* Pembuatan awal simulator */
     /* I.S. simulator sembarang */
     /* F.S. simulator berisi nama, posisi awal, dan inventory kosong */
     PrioQueueTime Q;
     MakeEmptyFood (&Q, CAPACITY);
     UserName(*sim) = nama;
-    UserLocate(*sim) = awal;
+    UserPeta(*sim) = awal;
     UserInventory(*sim) = Q;
 }
 
@@ -50,8 +50,21 @@ void addInventory (Simulator *sim, Makanan food, TIME realTime, NOTIF_STACK *NS)
 
 void removeInventory (Simulator *sim, Makanan food){
     /* Menghapus makanan tertentu pada inventory */
-
-    /* MENUNGGU FUNGSI ISEQUAL MAKANAN */
+    FoodType val;
+    PrioQueueTime sim2;
+    MakeEmptyFood(&sim2, CAPACITY);
+    while (!isFoodEqual(Info(InfoHead(UserInventory(*sim))),food) && !IsEmptyFood(UserInventory(*sim))){
+        DequeueFood(&UserInventory(*sim),&val);
+        EnqueueFood(&sim2, val);
+    }
+    if (isFoodEqual(Info(InfoHead(UserInventory(*sim))),food)){
+        DequeueFood(&UserInventory(*sim),&val);
+    }
+    while (!IsEmptyFood(sim2)){
+        DequeueFood(&sim2, &val);
+        EnqueueFood(&UserInventory(*sim), val);
+    }
+    
 
 }
 
@@ -65,7 +78,7 @@ void removeExpired (Simulator *sim, TIME realTime, NOTIF_STACK *NS){
     notifType notifikasi;
     Word namaTrashFood;
     Word kadaluarsa = strToWord("telah kadaluarsa :(.");
-    while (TIME_LEFT(InfoHead(UserInventory(*sim))) <= TIMEToMinute(realTime))
+    while (TIME_LEFT(InfoHead(UserInventory(*sim))) <= TIMEToMinute(realTime) && !IsEmptyFood(UserInventory(*sim)))
     {
         DequeueFood(&UserInventory(*sim), &val);
         namaTrashFood = NAMA(Info(val));
@@ -78,8 +91,8 @@ void displaySimulator (Simulator sim){
     /* Melakukan display pada simulator saat ini */
     printf("Nama simulator: ");
     DisplayWord(UserName(sim));
-    printf("Posisi simulator: ");
-    DisplayPosisi(UserLocate(sim));
+    printf("Posisi simulator: \n");
+    displayMatrix(UserPeta(sim));
     PrintPrioQueueTimeFood(UserInventory(sim)); 
 }
 

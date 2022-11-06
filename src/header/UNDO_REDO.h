@@ -1,0 +1,106 @@
+#include "simulator.h"
+
+#ifndef _UNDO_REDO_H
+#define _UNDO_REDO_H
+
+
+
+#define MaxUNDO 200
+
+typedef struct{
+    Simulator Sim;
+    TIME RealTime;
+    PrioQueueTime Delivery;
+    // MatrixKulkas Kulkas;
+} UndoRedoType;
+
+typedef int UndoRedoAddress;
+typedef int uji;
+
+typedef struct {
+    UndoRedoType       * T;
+    UndoRedoAddress    TOP_UNDO_REDO;
+} Stack_Undo_Redo;
+
+#define SIMULASI_PROSES(u)      (u).Sim
+#define TIME_PROSES(u)          (u).RealTime
+#define DELIVERY_PROSES(u)      (u).Delivery
+// #define KULKAS_PROSES(u)     (u).Kulkas
+#define UNDO_REDO_TOP(s)        (s).TOP_UNDO_REDO
+#define INFO_UNDO_REDO(s)       (s).T[(s).TOP_UNDO_REDO]
+
+/* ************ Prototype ************ */
+/* *** Konstruktor/Kreator *** */
+void CreateEmptyUndoRedo(Stack_Undo_Redo *S){
+/* I.S. sembarang; */
+/* F.S. Membuat sebuah stack S yang kosong berkapasitas MaxEl */
+/* jadi indeksnya antara 0.. MaxEl */
+/* Ciri stack kosong : TOP bernilai Nil */
+    (*S).T = (UndoRedoType *)malloc((MaxUNDO) * sizeof(UndoRedoType));
+    UNDO_REDO_TOP(*S) = Nil;
+}
+
+void createUndoRedoType (UndoRedoType *proses_saat_ini, Simulator sim, TIME realTime, PrioQueueTime delivery){
+    /* TAMBAH KULKAS NANTI */
+    /* I.S. proses saat ini sembarang */
+    /* F.S. proses saat ini terbentuk dari simulator, realtime, delivery */
+    SIMULASI_PROSES(*proses_saat_ini) = sim;
+    TIME_PROSES(*proses_saat_ini) = realTime;
+    DELIVERY_PROSES(*proses_saat_ini) = delivery;
+    // KULKAS_PROSES(*proses_saat_ini) = kulkas;
+}
+
+/* ************ Predikat Untuk test keadaan KOLEKSI ************ */
+boolean IsEmptyUndoRedo(Stack_Undo_Redo S){
+/* Mengirim true jika Stack kosong: lihat definisi di atas */
+    return UNDO_REDO_TOP(S) == Nil;
+}
+
+boolean IsFullUndoRedo(Stack_Undo_Redo S){
+/* Mengirim true jika tabel penampung nilai elemen stack penuh */
+    return UNDO_REDO_TOP(S) == MaxUNDO - 1;
+}
+
+/* ************ Menambahkan sebuah elemen ke Stack ************ */
+void PushUndoRedo(Stack_Undo_Redo * S, UndoRedoType X){
+/* Menambahkan X sebagai elemen Stack S. */
+/* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
+/* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
+    UNDO_REDO_TOP(*S) += 1; //kalau kosong dari -1 jadi 1 (sama aja)
+    INFO_UNDO_REDO(*S) = (X);
+}
+
+/* ************ Menghapus sebuah elemen Stack ************ */
+void PopUndoRedo(Stack_Undo_Redo * S, UndoRedoType* X){
+/* Menghapus X dari Stack S. */
+/* I.S. S  tidak mungkin kosong */
+/* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
+    *X = INFO_UNDO_REDO(*S);
+    UNDO_REDO_TOP(*S)--;
+}
+
+void UNDO(Stack_Undo_Redo *utama, Stack_Undo_Redo *buangan){
+    /* Melakukan UNDO dengan melakukan pop utama dan push ke buangan */
+    UndoRedoType val;
+    if (IsEmptyUndoRedo(*utama)){
+        printf("Tidak ada proses yang bisa di-UNDO\n");
+    } else {
+        PopUndoRedo(utama, &val);
+        PushUndoRedo(buangan, val);
+        printf("Proses berhasil di-UNDO\n");        
+    }
+}
+
+void REDO(Stack_Undo_Redo *utama, Stack_Undo_Redo *buangan){
+    /* Melakukan REDO dengan melakukan pop buangan dan push ke utama */
+    UndoRedoType val;
+    if (IsEmptyUndoRedo(*buangan)){
+        printf("Tidak ada proses yang bisa di-REDO\n");
+    } else {
+        PopUndoRedo(buangan, &val);
+        PushUndoRedo(utama, val);
+        printf("Proses berhasil di-REDO\n");        
+    }
+}
+
+#endif

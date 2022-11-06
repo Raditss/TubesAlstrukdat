@@ -308,7 +308,7 @@ void printListStatikFood(ListStatik l){
     if (isEmptyListStatik(l)){
         printf("Tidak ada daftar makanan dalam list ini\n");
     } else {
-        printf ("===================DAFTAR MAKANAN YANG BISA DIBUAT===================\n");
+        printf ("===================DAFTAR MAKANAN===================\n");
         for (int i = 0; i < listLengthStatik(l); i++){
             printf("=====================================================================\n");
             DisplayMakanan(ELMT_LIST_STATIK(l,i));

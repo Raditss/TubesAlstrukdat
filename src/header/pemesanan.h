@@ -25,7 +25,7 @@ void buy(Simulator sim,ListStatik *daftar, PrioQueueTime *belanjaan, TIME global
         FoodType x
         Info(x) = ELMT_LIST_STATIK(*daftar, (strToInt(currentWord.TabWord)-1))
         x.time_left = DTIME(Info(x));
-        EnqueueFood(belanjaan, ELMT_LIST_STATIK(*daftar, (strToInt(currentWord.TabWord)-1)));
+        EnqueueFood(belanjaan, x);
         printf("Makanan berhasil dicheckout!\n");
         printf("Silahkan menunggu makanan sampai di lokasi Anda!\n");
 

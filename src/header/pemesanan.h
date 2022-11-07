@@ -40,3 +40,7 @@ void displayDelivery(PrioQueueTime *belanjaan){
     PrintPrioQueueTimeFood(*belanjaan);
 
 }
+
+void addInventory(Simulator *sim, PrioQueueTime *belanjaan){
+    // pokonya kalo timenya udah <=0 bakal di dequeue dari belanjaan masuk ke inventory cuma timenya belum di masukin jadi nanti aja :D
+}

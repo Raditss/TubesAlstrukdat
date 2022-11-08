@@ -210,6 +210,24 @@ void deleteLastListStatik(ListStatik *l, ElTypeFoodList *val){
     ELMT_LIST_STATIK(*l,listLengthStatik(*l)-1) = createEmptyFood();
 }
 
+Word findFoodByID(ListStatik l, int ID){
+    /* Mengembalikan word yang merupakan nama dari ID makanan */
+    boolean found = false;
+    int i = 0;
+    while ((!found) && (!(isFoodEqual(ELMT_LIST_STATIK(l,i), createEmptyFood()))))
+    {
+        if (ID(ELMT_LIST_STATIK(l,i)) == ID){
+            found = true;
+        }
+        i++;
+    }
+    if (found){
+        return (NAMA(ELMT_LIST_STATIK(l,i-1)));
+    } else {
+        return (strToWord("Makanan tidak ditemukan."));
+    }
+}
+
 /* ********** SORTING ********** */
 void sortListStatikFood(ListStatik *l, boolean asc){
     /* I.S. l boleh kosong */

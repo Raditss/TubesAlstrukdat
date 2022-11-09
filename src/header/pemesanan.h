@@ -24,7 +24,7 @@ void buy(Simulator sim,ListStatik *daftar, PrioQueueTime *belanjaan, TIME global
         STARTWORDINPUT();
         FoodType x
         Info(x) = ELMT_LIST_STATIK(*daftar, (strToInt(currentWord.TabWord)-1))
-        x.time_left = DTIME(Info(x));
+        x.time_left = DTIME(Info(x))+globalTime;
         EnqueueFood(belanjaan, x);
         printf("Makanan berhasil dicheckout!\n");
         printf("Silahkan menunggu makanan sampai di lokasi Anda!\n");
@@ -41,6 +41,15 @@ void displayDelivery(PrioQueueTime *belanjaan){
 
 }
 
-void addInventory(Simulator *sim, PrioQueueTime *belanjaan){
+void addInventory(Simulator *sim, PrioQueueTime *belanjaan, TIME globaltime){
+    if globaltime>=TIME_LEFT(Head(*belanjaan)){
+        FoodType x;
+        DequeueFood(belanjaan, &x);
+        AddFood(&(sim).Inventory, Info(x));
+        printf("Makanan telah sampai di lokasi Anda!\n");
+    }
+    else{
+        printf("Makanan belum sampai di lokasi Anda!\n");
+    }
     // pokonya kalo timenya udah <=0 bakal di dequeue dari belanjaan masuk ke inventory cuma timenya belum di masukin jadi nanti aja :D
 }

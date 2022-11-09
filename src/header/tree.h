@@ -200,4 +200,14 @@ KumpulanTree mergeAdvancedTree(KumpulanTree simpenan){
     return Hasil;
 }
 
+Address getTree(int ID, KumpulanTree daftarResep){
+    /* daftarResep dalam hal ini bukan dalam bentuk advanced */
+    for (int i = 0; i < CAPACITY_TREE; i++){
+        if (INFO_TREE(ELMT_TREE(daftarResep,i)) == ID){
+            return (ELMT_TREE(daftarResep,i));
+        }
+    }
+    return NULL;
+}
+
 #endif

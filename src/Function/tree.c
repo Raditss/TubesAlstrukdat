@@ -45,7 +45,7 @@ int main(){
 
     printf("8. TULISAN INI HARUS TERLIHAT\n");
 
-    printf("\t5 tingkat di bawah id 43 adalah %d\n ", INFO_TREE(
+    printf("\t5 tingkat di bawah id 43 adalah %d\n", INFO_TREE(
                                                         CHILD( // anaknya dari
                                                         CHILD( // anaknya dari
                                                         CHILD( // anaknya dari
@@ -54,5 +54,10 @@ int main(){
                                                             ELMT_TREE(AdvancedTree,6)))))))));
 
     printf("9. TULISAN INI HARUS TERLIHAT\n");
+
+    Address p = getTree(18, KT);
+    printf("\tinfonya adalah: %d\n\tanaknya adalah: %d\n", INFO_TREE(p), INFO_TREE(CHILD(p)));
+    
+    printf("10. TULISAN INI HARUS TERLIHAT\n");
     return 0;
 }

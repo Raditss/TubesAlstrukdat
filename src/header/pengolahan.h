@@ -20,7 +20,7 @@ boolean isResepInInventory(PrioQueueTime *Inv, Akar Resep) {
     MakeEmptyFood(&Inv2, CAPACITY);
     if (idSiblingResep == NULL) {
         // Resep tidak memiliki sibling, mencari child saja
-        foundSibling == true;
+        foundSibling = true;
         while (!foundChild && !IsEmptyFood(*Inv)) {
             DequeueFood(Inv, &val);
             EnqueueFood(&Inv2, val);
@@ -131,7 +131,7 @@ void CHOP(Simulator *sim, PrioQueueTime *Inv, int ID, KumpulanTree daftarResep, 
                 // menambahkan hasil mix ke inventory
                 addInventory(sim, hasil, *realTime, NS);
                 // menambah waktu
-                *realTime = NextMinute(*realTime);
+                *realTime = NextMinute(NextMinute(*realTime));
             } else {
                 printf("Makanan bukan diperoleh dengan cara Chop.\n");
             }
@@ -169,7 +169,7 @@ void FRY(Simulator *sim, PrioQueueTime *Inv, int ID, KumpulanTree daftarResep, L
                 // menambahkan hasil mix ke inventory
                 addInventory(sim, hasil, *realTime, NS);
                 // menambah waktu
-                *realTime = NextMinute(*realTime);
+                *realTime = NextMinute(NextMinute(NextMinute(*realTime)));
             } else {
                 printf("Makanan bukan diperoleh dengan cara Fry.\n");
             }
@@ -207,7 +207,7 @@ void BOIL(Simulator *sim, PrioQueueTime *Inv, int ID, KumpulanTree daftarResep, 
                 // menambahkan hasil mix ke inventory
                 addInventory(sim, hasil, *realTime, NS);
                 // menambah waktu
-                *realTime = NextMinute(*realTime);
+                *realTime = NextMinute(NextMinute(NextMinute(NextMinute(*realTime))));
             } else {
                 printf("Makanan bukan diperoleh dengan cara Boil.\n");
             }

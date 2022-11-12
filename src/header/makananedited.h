@@ -3,9 +3,6 @@
 #ifndef makanan_H
 #define makanan_H
 
-#include "time.h"
-#include "string.h"
-#include "stackint.h"
 #include "simulator.h"
 
 PrioQueueTime createMakanan (char namaFile[]){

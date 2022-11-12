@@ -1,6 +1,6 @@
-#include "string.h"
+#include "sentencemachine.h"
 #include "point.h"
-
+#include "time.h"
 
 /* ********** Definisi TYPE Matrix dengan Index dan elemen CHAR ********** */
 
@@ -199,6 +199,65 @@ boolean moveCommand (Matrix *M, Word command){
     return valid;
 }
 
+
+void moveCommandV2 (Matrix *M, TIME *realTime, Kalimat perintah){
+    /* I.S. Matrix sembarang */
+    /* F.S. Jika move valid, S akan bergeser sesuai perintah */
+    /*      Mirip seperti movecommand hanya saja perintah dalam bentuk kalimat */
+    Kalimat north, south, east, west;
+    Word tempNorth, tempSouth, tempEast, tempWest;
+    tempNorth = strToWord("MOVE NORTH.");
+    tempEast = strToWord("MOVE EAST.");
+    tempSouth = strToWord("MOVE SOUTH.");
+    tempWest = strToWord("MOVE WEST.");
+    north = wordToKalimat(tempNorth);
+    south = wordToKalimat(tempSouth);
+    east = wordToKalimat(tempEast);
+    west = wordToKalimat(tempWest);
+    
+    Posisi P = getPosisi(*M);
+    if (isKalimatEqual(perintah,north)){
+        if (ELMT(*M, ROW_POSISI(P) - 1, COL_POSISI(P)) != ' '){
+            printf("Gagal berpindah\n");
+        } else {
+            ELMT(*M, ROW_POSISI(P) - 1, COL_POSISI(P)) = 'S';
+            ELMT(*M, ROW_POSISI(P), COL_POSISI(P)) = ' ';
+            ROW_POSISI(P)--;
+            *realTime = NextMinute(*realTime);
+        }
+    } else if (isKalimatEqual(perintah,south)){
+        if (ELMT(*M, ROW_POSISI(P) + 1, COL_POSISI(P)) != ' '){
+            printf("Gagal berpindah\n");
+        } else {
+            ELMT(*M, ROW_POSISI(P) + 1, COL_POSISI(P)) = 'S';
+            ELMT(*M, ROW_POSISI(P), COL_POSISI(P)) = ' ';
+            ROW_POSISI(P)++;
+            *realTime = NextMinute(*realTime);
+        }
+    } else if (isKalimatEqual(perintah,east)){
+        if (ELMT(*M, ROW_POSISI(P), COL_POSISI(P) + 1) != ' '){
+            printf("Gagal berpindah\n");
+        } else {
+            ELMT(*M, ROW_POSISI(P), COL_POSISI(P) + 1) = 'S';
+            ELMT(*M, ROW_POSISI(P), COL_POSISI(P)) = ' ';
+            COL_POSISI(P)++;
+            *realTime = NextMinute(*realTime);
+        }
+    } else if (isKalimatEqual(perintah,west)){
+        if (ELMT(*M, ROW_POSISI(P), COL_POSISI(P) - 1) != ' '){
+            printf("Gagal berpindah\n");
+        } else {
+            ELMT(*M, ROW_POSISI(P), COL_POSISI(P) - 1) = 'S';
+            ELMT(*M, ROW_POSISI(P), COL_POSISI(P)) = ' ';
+            COL_POSISI(P)--;
+            *realTime = NextMinute(*realTime);
+        }
+    } else {
+        printf("Masukan tidak valid!\n");
+    }
+    DisplayPosisi(P);
+}
+
 boolean isClose (Matrix M, char c){
     /* Menerima matrix lalu mengecek apakah S dekat dengan c */
     /* Mengembalikan true jika S tepat di kanan/kiri/atas/bawah c */
@@ -210,6 +269,36 @@ boolean isClose (Matrix M, char c){
            (ELMT(M,x+1,y) == c) ||
            (ELMT(M,x,y-1) == c) ||
            (ELMT(M,x-1,y) == c);
+}
+
+Matrix getPeta (char namaFile[]){
+    /* Membaca file peta.txt untuk mendapatkan peta */
+    Matrix peta;
+    Stack Sm, Sn;
+    int m;
+    int n;
+
+    STARTWORD(namaFile);
+
+    m = strToInt(currentWord);
+
+    ADVWORD();
+
+    n = strToInt(currentWord);
+
+    ADVWORD();
+    // Saat ini telah didapat dimensi matrix yaitu m x n
+    createMatrix(m,n,&peta);
+    int i = 0;
+    while (!endWord){
+        for (int j = 0; j < n; j++){
+            ELMT(peta,i,j) = currentWord.TabWord[j];
+        }
+        ADVWORD();
+        i++;
+    }
+
+    return peta;
 }
 
 #endif

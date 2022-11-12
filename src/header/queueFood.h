@@ -1,4 +1,4 @@
-#include "makananedited.h"
+
 #include "makanan.h"
 
 #ifndef _QUEUE_FOOD_
@@ -70,8 +70,8 @@ void MakeEmptyFood (PrioQueueTime * Q, int Max){
     if ((*Q).T == NULL){
         MaxElmtFood(*Q) = 0;
     } else{
-        Head(*Q) = Nil;
-        Tail(*Q) = Nil;
+        Head(*Q) = NilFood;
+        Tail(*Q) = NilFood;
         MaxElmtFood(*Q) = Max;
     }
 }
@@ -81,8 +81,8 @@ void DeAlokasiFood(PrioQueueTime * Q){
 /* Proses: Mengembalikan memori Q */
 /* I.S. Q pernah dialokasi */
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxElmtFood(Q) diset 0 */
-    Head(*Q) = Nil;
-    Tail(*Q) = Nil;
+    Head(*Q) = NilFood;
+    Tail(*Q) = NilFood;
     MaxElmtFood(*Q) = 0;
     free((*Q).T);
 }
@@ -121,8 +121,8 @@ void DequeueFood (PrioQueueTime * Q, FoodType * X){
         Q mungkin kosong */
     if (NBElmtFood(*Q) == 1){
         *X = InfoHead(*Q);
-        Head(*Q) = Nil;
-        Tail(*Q) = Nil;
+        Head(*Q) = NilFood;
+        Tail(*Q) = NilFood;
     }else{
         *X = InfoHead(*Q);
         Head(*Q) = (Head(*Q) == MaxElmtFood(*Q) - 1) ? 0 : Head(*Q) + 1;

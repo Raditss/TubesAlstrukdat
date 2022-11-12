@@ -95,4 +95,19 @@ void displaySimulator (Simulator sim){
     PrintPrioQueueTimeFood(UserInventory(sim)); 
 }
 
+void displayBasic (Simulator sim, TIME realTime, NOTIF_STACK *notif){
+    /* Menampilkan bentuk simulator saat ini */
+    /* Menampilkan waktu saat ini */
+    /* Menampilkan notifikasi saat ini */
+    /* I.S. Sembarang */
+    /* F.S. Notif ditampilkan lalu dihapuskan */
+    DisplayWordNoEnter(UserName(sim));
+    printf(" di posisi: ");
+    DisplayPosisiV2(getPosisi(UserPeta(sim)));
+    printf("Waktu saat ini: ");
+    TulisTIME(realTime);
+    displayNotif(notif);
+    displayMatrix(UserPeta(sim));
+}
+
 #endif

@@ -82,7 +82,7 @@ void PopUndoRedo(Stack_Undo_Redo * S, UndoRedoType* X){
 void UNDO(Stack_Undo_Redo *utama, Stack_Undo_Redo *buangan){
     /* Melakukan UNDO dengan melakukan pop utama dan push ke buangan */
     UndoRedoType val;
-    if (IsEmptyUndoRedo(*utama)){
+    if (IsEmptyUndoRedo(*utama) || UNDO_REDO_TOP(*utama) == 0){
         printf("Tidak ada proses yang bisa di-UNDO\n");
     } else {
         PopUndoRedo(utama, &val);

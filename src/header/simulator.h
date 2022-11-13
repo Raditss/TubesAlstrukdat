@@ -110,4 +110,89 @@ void displayBasic (Simulator sim, TIME realTime, NOTIF_STACK *notif){
     displayMatrix(UserPeta(sim));
 }
 
+void WAIT(TIME *realTime, int h, int m){
+    int DD, HH, MM;
+    DD = Day(*realTime);
+    HH = Hour(*realTime) + h;
+    MM = Minute(*realTime) + m;
+
+    if (MM > 60) {
+        if (HH > 24) {
+            Minute(*realTime) = (MM % 60);
+            Hour(*realTime) = ((MM / 60) + HH) % 24;
+            Day(*realTime) = ((MM / 60) + HH) / 24 + DD;
+        }
+        else {
+            Minute(*realTime) = (MM % 60);
+            Hour(*realTime) = (MM / 60) + HH;
+            if (((MM / 60) + HH) > 60) {
+                Day(*realTime) = ((MM / 60) + HH) / 24 + DD;
+            } else {
+                Day(*realTime) = DD;
+            }
+        }
+    } 
+    else {
+        if (HH > 24) {
+            Minute(*realTime) = MM;
+            Hour(*realTime) = HH % 24;
+            Day(*realTime) = (HH / 24) + DD;
+        }
+        else {
+            Minute(*realTime) = Minute(*realTime) + m;
+            Hour(*realTime) = Hour(*realTime) + h;
+            Day(*realTime) = DD; 
+        }
+    }
+    *realTime = MakeTIME(Day(*realTime), Hour(*realTime), Minute(*realTime));
+}
+
+boolean isWaitCommand (Kalimat currentKalimat){
+    /* True jika kata dimulai dengan WAIT */
+    return (currentKalimat.TabKalimat[0] == 'W' &&
+            currentKalimat.TabKalimat[1] == 'A' &&
+            currentKalimat.TabKalimat[2] == 'I' &&
+            currentKalimat.TabKalimat[3] == 'T' &&
+            currentKalimat.TabKalimat[4] == ' ');
+}
+
+boolean isWaitCommandValid (Kalimat currentKalimat){
+    /* Mengembalikan true jika X dan Y valid */
+    for (int i = 5; i < currentKalimat.LengthKalimat; i++){
+        if ((currentKalimat.TabKalimat[i] < 48) || (currentKalimat.TabKalimat[i] > 57) || (currentKalimat.TabKalimat[i] != 32)){
+            return false;
+        }
+    }
+    return true;
+}
+
+void getWaitHour (Kalimat currentKalimat, int *hour, int *minute){
+    /* Prekondisi: Wait valid */
+    int i = 5;
+    *hour = 0;
+    *minute = 0;
+    int lenHour;
+    int lenMinute = 0;
+    while (currentKalimat.TabKalimat[i] != ' ')
+    {
+        i++;
+    }
+    lenHour = i;
+
+    for (int j = i+1; j < currentKalimat.LengthKalimat; j++){
+        lenMinute++;
+    }
+    
+    int pengali = 1;
+    for (int k = 5 + lenHour - 1; k > 5 ; k--){
+        *hour += (currentKalimat.TabKalimat[k] - 48) * pengali;
+        pengali *= 10;
+    }
+    pengali = 1;
+
+    for (int l = currentKalimat.LengthKalimat - 1; l > lenHour+2; l--){
+        *minute += (currentKalimat.TabKalimat[l] - 48) * pengali;
+    }
+}
+
 #endif

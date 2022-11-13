@@ -175,6 +175,22 @@ int strToInt (Word kata){
     return hasil;
 }
 
+int strToIntV2 (Word kata){
+    /* Mengembalikan bentuk integer dari kata */
+    /* Prekondisi: kata merupakan string positif misal "16" */
+    int pengali = 1;
+    int result = 0;
+    int temp;
+    char temp2;
+    for (int i = Len(kata)-1; i >= 0; i--){
+        temp2 = kata.TabWord[i];
+        temp = temp2;
+        result += (temp - 48) * pengali;
+        pengali *= 10;
+    }
+    return result;
+}
+
 boolean isInt (Word currentWord){
     /* Mengembalikan true jika kata berupa integer */
     for (int i = 0; i < currentWord.Length; i++){

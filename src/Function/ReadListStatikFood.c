@@ -4,6 +4,8 @@
 
 int main(){
     ListStatik DaftarMenu = readFileMakananListStatik("../../bin/menumakanan.txt");
-    printListStatikFood(DaftarMenu);
+    // printListStatikFood(DaftarMenu);
+    ListStatik buyAbleFood = isBuyAble(DaftarMenu);
+    printListStatikFood(buyAbleFood);
     return 0;
 }

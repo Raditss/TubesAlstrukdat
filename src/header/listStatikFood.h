@@ -228,6 +228,29 @@ Word findFoodByID(ListStatik l, int ID){
     }
 }
 
+boolean findMakananByID(ListStatik l, int ID){
+    /* Mengembalikan true jika makanan ada di daftar */
+    int i = 0;
+    while ((!(isFoodEqual(ELMT_LIST_STATIK(l,i), createEmptyFood()))))
+    {
+        if (ID(ELMT_LIST_STATIK(l,i)) == ID){
+            return true;
+        }
+        i++;
+    }
+    return false;
+}
+
+Makanan searchFoodByID(ListStatik l, int ID){
+    /* Search food */
+    for (int i = 0; i < CAPACITY_LIST_FOOD; i++){
+        if (ID(ELMT_LIST_STATIK(l,i)) == ID){
+            return ELMT_LIST_STATIK(l,i);
+        }
+    }
+    return createEmptyFood();
+}
+
 /* ********** SORTING ********** */
 void sortListStatikFood(ListStatik *l, boolean asc){
     /* I.S. l boleh kosong */
@@ -352,6 +375,21 @@ void CATALOG (ListStatik l){
         TulisTIMEnoEnter(DTIME(ELMT_LIST_STATIK(l,i)));
         printf("\n");
     }
+}
+
+ListStatik isBuyAble(ListStatik daftarMakanan){
+    /* Menerima daftar makanan */
+    /* Mengeluarkan makanan yang tipe BUY */
+    ListStatik buyAble;
+    CreateListStatik(&buyAble);
+    int i = 0;
+    for (int j = 0; j < listLengthStatik(daftarMakanan); j++){
+        if (isWordEqual(LOC(ELMT_LIST_STATIK(daftarMakanan,j)), strToWord("Buy."))){
+            ELMT_LIST_STATIK(buyAble,i) = ELMT_LIST_STATIK(daftarMakanan,j);
+            i++;
+        }
+    }
+    return buyAble;
 }
 
 #endif

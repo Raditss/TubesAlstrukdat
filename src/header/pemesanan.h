@@ -1,14 +1,10 @@
-#include "queuefood.h"
-#include "listStatikFood.h"
-#include "matrix.h"
-#include "simulator.h"
-#include "wordmachine.h"
-#include "time.h"
-#include "string.h"
+#ifndef _BUY_H_
+#define _BUY_H_
+
+#include "UNDO_REDO.h"
 
 
-
-void buy(Simulator sim,ListStatik *daftar, PrioQueueTime *belanjaan, TIME globalTime){
+void BUY(Simulator sim,ListStatik *daftar, PrioQueueTime *belanjaan, TIME globalTime){
     /* Membeli makanan dengan id tertentu */
     /* I.S daftar dan belanjaan terdefinisi */
     /* F.S daftar dan belanjaan terdefinisi */
@@ -21,13 +17,19 @@ void buy(Simulator sim,ListStatik *daftar, PrioQueueTime *belanjaan, TIME global
         printf("List Bahan Makanan:\n \n");
         printListStatikFood(*daftar);
         printf("Masukkan ID makanan yang ingin dibeli: ");
-        STARTWORDINPUT();
-        FoodType x
-        Info(x) = ELMT_LIST_STATIK(*daftar, (strToInt(currentWord.TabWord)-1))
-        x.time_left = DTIME(Info(x))+globalTime;
-        EnqueueFood(belanjaan, x);
-        printf("Makanan berhasil dicheckout!\n");
-        printf("Silahkan menunggu makanan sampai di lokasi Anda!\n");
+        STARTKALIMAT();
+        int ini_ID = strToIntV2(kalimatToWord(currentKalimat));
+        FoodType x;
+        if (findMakananByID(*daftar, ini_ID)){
+            Info(x) = searchFoodByID(*daftar, ini_ID);
+            x.time_left = TIMEToMinute(DTIME(Info(x))) + TIMEToMinute(globalTime);
+            EnqueueFood(belanjaan, x);
+            printf("Makanan berhasil dicheckout!\n");
+            printf("Silahkan menunggu makanan sampai di lokasi Anda!\n");
+        } else {
+            printf("ID tidak ditemukan\n");
+        }
+
 
     }
     else{
@@ -35,21 +37,11 @@ void buy(Simulator sim,ListStatik *daftar, PrioQueueTime *belanjaan, TIME global
     }
 }
 
-void displayDelivery(PrioQueueTime *belanjaan){
+void displayDelivery(PrioQueueTime belanjaan){
 
-    PrintPrioQueueTimeFood(*belanjaan);
+    PrintPrioQueueTimeFood(belanjaan);
 
 }
 
-void addInventory(Simulator *sim, PrioQueueTime *belanjaan, TIME globaltime){
-    if globaltime>=TIME_LEFT(Head(*belanjaan)){
-        FoodType x;
-        DequeueFood(belanjaan, &x);
-        AddFood(&(sim).Inventory, Info(x));
-        printf("Makanan telah sampai di lokasi Anda!\n");
-    }
-    else{
-        printf("Makanan belum sampai di lokasi Anda!\n");
-    }
-    // pokonya kalo timenya udah <=0 bakal di dequeue dari belanjaan masuk ke inventory cuma timenya belum di masukin jadi nanti aja :D
-}
+
+#endif

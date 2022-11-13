@@ -155,9 +155,9 @@ void PrintPrioQueueTimeFood (PrioQueueTime Q){
             DisplayWord(LOC(Info(val)));
             printf("\n");
             
-            /* Tunggu malik */
         }
     }
+    
     printf("#\n");
 
 }

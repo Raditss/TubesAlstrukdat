@@ -18,7 +18,7 @@ boolean isResepInInventory(PrioQueueTime *Inv, Akar Resep) {
     idChildResep = INFO_TREE(CHILD(Resep));
 
     MakeEmptyFood(&Inv2, CAPACITY);
-    if (idSiblingResep == NULL) {
+    if (SIBLING(Resep) == NULL) {
         // Resep tidak memiliki sibling, mencari child saja
         foundSibling = true;
         while (!foundChild && !IsEmptyFood(*Inv)) {
@@ -70,7 +70,7 @@ void getMakananFromList(int ID, ListStatik daftarInformasi, Makanan *mkn) {
 ListStatik ListOlahAble(ListStatik daftarInformasi, char loc[]) {
     ListStatik l;
     int i = 0;
-    nInformasi = listLengthStatik(daftarInformasi);
+    int nInformasi = listLengthStatik(daftarInformasi);
     CreateListStatik(&l);
     while (i < nInformasi) {
             if (LOC(ELMT_LIST_STATIK(daftarInformasi, i)).TabWord == loc) {
@@ -83,7 +83,7 @@ ListStatik ListOlahAble(ListStatik daftarInformasi, char loc[]) {
 
 void printOlahAble(ListStatik l) {
     int i = 0;
-    nInformasi = listLengthStatik(l);
+    int nInformasi = listLengthStatik(l);
     while (i < nInformasi) {
         printf("    %d. %s\n", i+1, NAMA(ELMT_LIST_STATIK(l, i)).TabWord);
         i++;
@@ -135,14 +135,14 @@ void MIX(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, T
         printf("======================\n");
         printf("List Bahan Makanan yang Bisa Dibuat:\n");
         printOlahAble(l);
-        printf("Kirim 0 untuk exit.")
+        printf("Kirim 0 untuk exit.");
         printf("Enter Command: ");
-        STARTWORD();
-        int input = strToInt(CKata.TabWord);
+        STARTKALIMAT();
+        int input = strToInt(kalimatToWord(currentKalimat));
         while(input < 1 || input > nOlahable) {
             printf("Input tidak valid. Silakan masukkan input kembali: ");
-            STARTWORD();
-            input = strToInt(CKata.TabWord);
+            STARTKALIMAT();
+            input = strToInt(kalimatToWord(currentKalimat));
         }
         if (input > 0) {
             int ID = ID(ELMT_LIST_STATIK(l, input-1));
@@ -157,7 +157,7 @@ void MIX(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, T
                 // mendefinisikan tipe makanan child dan sibling, lalu mengurangi inventory
                 getMakananFromList(idChildResep, daftarInformasi, &child);
                 removeInventory(sim, child);
-                if (idSiblingResep != NULL) {
+                if (SIBLING(resep) != NULL) {
                     getMakananFromList(idSiblingResep, daftarInformasi, &sibling);
                     removeInventory(sim, sibling);
                 }
@@ -168,7 +168,7 @@ void MIX(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, T
             } else {
                 ListStatik listTidakAda;
                 CreateListStatik(&listTidakAda);
-                if (idSiblingResep != NULL) {
+                if (SIBLING(resep) != NULL) {
                     if (isInInventory(idSiblingResep, &UserInventory(*sim))) {
                         insertLastListStatik(&listTidakAda, sibling);
                     }
@@ -204,14 +204,14 @@ void CHOP(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, 
         printf("======================\n");
         printf("List Bahan Makanan yang Bisa Dibuat:\n");
         printOlahAble(l);
-        printf("Kirim 0 untuk exit.")
+        printf("Kirim 0 untuk exit.");
         printf("Enter Command: ");
-        STARTWORD();
-        int input = strToInt(CKata.TabWord);
+        STARTKALIMAT();
+        int input = strToInt(kalimatToWord(currentKalimat));
         while(input < 1 || input > nOlahable) {
             printf("Input tidak valid. Silakan masukkan input kembali: ");
-            STARTWORD();
-            input = strToInt(CKata.TabWord);
+            STARTKALIMAT();
+            input = strToInt(kalimatToWord(currentKalimat));
         }
         if (input > 0) {
             int ID = ID(ELMT_LIST_STATIK(l, input-1));
@@ -226,7 +226,7 @@ void CHOP(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, 
                 // mendefinisikan tipe makanan child dan sibling, lalu mengurangi inventory
                 getMakananFromList(idChildResep, daftarInformasi, &child);
                 removeInventory(sim, child);
-                if (idSiblingResep != NULL) {
+                if (SIBLING(resep) != NULL) {
                     getMakananFromList(idSiblingResep, daftarInformasi, &sibling);
                     removeInventory(sim, sibling);
                 }
@@ -237,7 +237,7 @@ void CHOP(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, 
             } else {
                 ListStatik listTidakAda;
                 CreateListStatik(&listTidakAda);
-                if (idSiblingResep != NULL) {
+                if (SIBLING(resep) != NULL) {
                     if (isInInventory(idSiblingResep, &UserInventory(*sim))) {
                         insertLastListStatik(&listTidakAda, sibling);
                     }
@@ -274,14 +274,14 @@ void FRY(Simulator *sim, PrioQueueTime *Inv, int ID, KumpulanTree daftarResep, L
 
         printf("List Bahan Makanan yang Bisa Dibuat:\n");
         printOlahAble(l);
-        printf("Kirim 0 untuk exit.")
+        printf("Kirim 0 untuk exit.");
         printf("Enter Command: ");
-        STARTWORD();
-        int input = strToInt(CKata.TabWord);
+        STARTKALIMAT();
+        int input = strToInt(kalimatToWord(currentKalimat));
         while(input < 1 || input > nOlahable) {
             printf("Input tidak valid. Silakan masukkan input kembali: ");
-            STARTWORD();
-            input = strToInt(CKata.TabWord);
+            STARTKALIMAT();
+            input = strToInt(kalimatToWord(currentKalimat));
         }
         if (input > 0) {
             int ID = ID(ELMT_LIST_STATIK(l, input-1));
@@ -296,7 +296,7 @@ void FRY(Simulator *sim, PrioQueueTime *Inv, int ID, KumpulanTree daftarResep, L
                 // mendefinisikan tipe makanan child dan sibling, lalu mengurangi inventory
                 getMakananFromList(idChildResep, daftarInformasi, &child);
                 removeInventory(sim, child);
-                if (idSiblingResep != NULL) {
+                if (SIBLING(resep) != NULL) {
                     getMakananFromList(idSiblingResep, daftarInformasi, &sibling);
                     removeInventory(sim, sibling);
                 }
@@ -307,7 +307,7 @@ void FRY(Simulator *sim, PrioQueueTime *Inv, int ID, KumpulanTree daftarResep, L
             } else {
                 ListStatik listTidakAda;
                 CreateListStatik(&listTidakAda);
-                if (idSiblingResep != NULL) {
+                if (SIBLING(resep) != NULL) {
                     if (isInInventory(idSiblingResep, &UserInventory(*sim))) {
                         insertLastListStatik(&listTidakAda, sibling);
                     }
@@ -343,14 +343,14 @@ void BOIL(Simulator *sim, PrioQueueTime *Inv, int ID, KumpulanTree daftarResep, 
         printf("======================\n");
         printf("List Bahan Makanan yang Bisa Dibuat:\n");
         printOlahAble(l);
-        printf("Kirim 0 untuk exit.")
+        printf("Kirim 0 untuk exit.");
         printf("Enter Command: ");
-        STARTWORD();
-        int input = strToInt(CKata.TabWord);
+        STARTKALIMAT();
+        int input = strToInt(kalimatToWord(currentKalimat));
         while(input < 1 || input > nOlahable) {
             printf("Input tidak valid. Silakan masukkan input kembali: ");
-            STARTWORD();
-            input = strToInt(CKata.TabWord);
+            STARTKALIMAT();
+            input = strToInt(kalimatToWord(currentKalimat));
         }
         if (input > 0) {
             int ID = ID(ELMT_LIST_STATIK(l, input-1));
@@ -365,7 +365,7 @@ void BOIL(Simulator *sim, PrioQueueTime *Inv, int ID, KumpulanTree daftarResep, 
                 // mendefinisikan tipe makanan child dan sibling, lalu mengurangi inventory
                 getMakananFromList(idChildResep, daftarInformasi, &child);
                 removeInventory(sim, child);
-                if (idSiblingResep != NULL) {
+                if (SIBLING(resep) != NULL) {
                     getMakananFromList(idSiblingResep, daftarInformasi, &sibling);
                     removeInventory(sim, sibling);
                 }
@@ -376,7 +376,7 @@ void BOIL(Simulator *sim, PrioQueueTime *Inv, int ID, KumpulanTree daftarResep, 
             } else {
                 ListStatik listTidakAda;
                 CreateListStatik(&listTidakAda);
-                if (idSiblingResep != NULL) {
+                if (SIBLING(resep) != NULL) {
                     if (isInInventory(idSiblingResep, &UserInventory(*sim))) {
                         insertLastListStatik(&listTidakAda, sibling);
                     }

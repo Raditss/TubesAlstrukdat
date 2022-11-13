@@ -74,7 +74,7 @@ void BacaTIME (TIME * T)
 
     /* ALGORITMA */
     do {
-        //scanf("%d %d %d", &d, &h, &m);
+        scanf("%d %d %d", &d, &h, &m);
         if (!IsTIMEValid(d, h, m)) {
             printf("Waktu tidak valid\n");
         }

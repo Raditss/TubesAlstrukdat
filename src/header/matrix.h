@@ -200,7 +200,7 @@ boolean moveCommand (Matrix *M, Word command){
 }
 
 
-void moveCommandV2 (Matrix *M, TIME *realTime, Kalimat perintah){
+void moveCommandV2 (Matrix *M, TIME *realTime, Kalimat perintah, boolean *isValid){
     /* I.S. Matrix sembarang */
     /* F.S. Jika move valid, S akan bergeser sesuai perintah */
     /*      Mirip seperti movecommand hanya saja perintah dalam bentuk kalimat */
@@ -224,6 +224,7 @@ void moveCommandV2 (Matrix *M, TIME *realTime, Kalimat perintah){
             ELMT(*M, ROW_POSISI(P), COL_POSISI(P)) = ' ';
             ROW_POSISI(P)--;
             *realTime = NextMinute(*realTime);
+            *isValid = true;
         }
     } else if (isKalimatEqual(perintah,south)){
         if (ELMT(*M, ROW_POSISI(P) + 1, COL_POSISI(P)) != ' '){
@@ -233,6 +234,7 @@ void moveCommandV2 (Matrix *M, TIME *realTime, Kalimat perintah){
             ELMT(*M, ROW_POSISI(P), COL_POSISI(P)) = ' ';
             ROW_POSISI(P)++;
             *realTime = NextMinute(*realTime);
+            *isValid = true;
         }
     } else if (isKalimatEqual(perintah,east)){
         if (ELMT(*M, ROW_POSISI(P), COL_POSISI(P) + 1) != ' '){
@@ -242,6 +244,7 @@ void moveCommandV2 (Matrix *M, TIME *realTime, Kalimat perintah){
             ELMT(*M, ROW_POSISI(P), COL_POSISI(P)) = ' ';
             COL_POSISI(P)++;
             *realTime = NextMinute(*realTime);
+            *isValid = true;
         }
     } else if (isKalimatEqual(perintah,west)){
         if (ELMT(*M, ROW_POSISI(P), COL_POSISI(P) - 1) != ' '){
@@ -251,11 +254,11 @@ void moveCommandV2 (Matrix *M, TIME *realTime, Kalimat perintah){
             ELMT(*M, ROW_POSISI(P), COL_POSISI(P)) = ' ';
             COL_POSISI(P)--;
             *realTime = NextMinute(*realTime);
+            *isValid = true;
         }
     } else {
         printf("Masukan tidak valid!\n");
     }
-    DisplayPosisi(P);
 }
 
 boolean isClose (Matrix M, char c){
@@ -300,5 +303,14 @@ Matrix getPeta (char namaFile[]){
 
     return peta;
 }
+
+boolean isMoveCommand(Kalimat k){
+    /* Mengembalikan true jika command diawali MOVE */
+    return (k.TabKalimat[0] == 'M' && 
+            k.TabKalimat[1] == 'O' &&
+            k.TabKalimat[2] == 'V' &&
+            k.TabKalimat[3] == 'E');
+}
+
 
 #endif

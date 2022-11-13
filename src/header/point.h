@@ -130,12 +130,16 @@ void Geser (Posisi *P, int deltaX, int deltaY){
 }
 
 void DisplayPosisi(Posisi p){
-    /* print "BNMO di posisi (x-1,y-1)" */
+/* print "BNMO di posisi (x-1,y-1)" */
     printf("BNMO di posisi ");
     TulisPosisi(PlusDelta(p,-1,-1));
     printf("\n");
 }
 
-
+void DisplayPosisiV2(Posisi p){
+/* print "BNMO di posisi (x-1,y-1)" */
+   TulisPosisi(PlusDelta(p,-1,-1));
+   printf("\n");
+}
 
 #endif

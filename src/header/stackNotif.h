@@ -7,8 +7,8 @@
 
 #define MaxNotif 100
 
-#include "string.h"
-#include "stackint.h"
+#include "wordmachine.h"
+
 
 typedef Word notifType;
 typedef int notifAddress;
@@ -61,5 +61,22 @@ void PopNotif(NOTIF_STACK * S, notifType* X){
     NOTIF_TOP(*S)--;
 }
 
+void displayNotif(NOTIF_STACK *S){
+/* Menampilkan daftar notifikasi saat ini */
+/* I.S. Sembarang */
+/* F.S. Menampilkan notifikasi sekaligus menghapusnya */
+    int i = 0;
+    notifType val;
+    if (IsEmptyNotif(*S)){
+        printf("Notifikasi: - \n");
+    } else {
+        while (!IsEmptyNotif(*S)){
+            i++;
+            PopNotif(S, &val);
+            printf("%d. ", i);
+            DisplayWord(val);
+        }
+    }
+}
 
 #endif

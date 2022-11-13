@@ -1,4 +1,4 @@
-#include "simulator.h"
+#include "REKOMENDASI.h"
 
 #ifndef _UNDO_REDO_H
 #define _UNDO_REDO_H
@@ -100,6 +100,25 @@ void REDO(Stack_Undo_Redo *utama, Stack_Undo_Redo *buangan){
         PopUndoRedo(buangan, &val);
         PushUndoRedo(utama, val);
         printf("Proses berhasil di-REDO\n");        
+    }
+}
+
+void getProses(Stack_Undo_Redo utama, TIME *realTime, Simulator *sim, PrioQueueTime *delivery){
+    /* Mengembalikan isi stack ke proses saat ini */
+    /* I.S. Sembarang, stack tidak mungkin kosong */
+    /* F.S. realTime dan sim serta delivery diubah menjadi sama seperti top dari stack */
+    *realTime = TIME_PROSES(INFO_UNDO_REDO(utama));
+    *sim = SIMULASI_PROSES(INFO_UNDO_REDO(utama));
+    *delivery = DELIVERY_PROSES(INFO_UNDO_REDO(utama));
+}
+
+void clearProses(Stack_Undo_Redo *redo){
+    /* Menghapus semua elemen undo redo */
+    /* I.S. Sembarang */
+    /* F.S. Redo di set kosong */
+    UndoRedoType val;
+    while (!IsEmptyUndoRedo(*redo)){
+        PopUndoRedo(redo,&val);
     }
 }
 

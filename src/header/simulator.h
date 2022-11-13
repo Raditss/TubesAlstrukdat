@@ -147,52 +147,74 @@ void WAIT(TIME *realTime, int h, int m){
     *realTime = MakeTIME(Day(*realTime), Hour(*realTime), Minute(*realTime));
 }
 
-boolean isWaitCommand (Kalimat currentKalimat){
-    /* True jika kata dimulai dengan WAIT */
-    return (currentKalimat.TabKalimat[0] == 'W' &&
-            currentKalimat.TabKalimat[1] == 'A' &&
-            currentKalimat.TabKalimat[2] == 'I' &&
-            currentKalimat.TabKalimat[3] == 'T' &&
-            currentKalimat.TabKalimat[4] == ' ');
+void WAITV2 (TIME *realTime, int hh, int mm){
+    /* Versi kedua dari WAIT */
+    *realTime = NextNMinute(*realTime, hh*60+mm);
 }
 
-boolean isWaitCommandValid (Kalimat currentKalimat){
-    /* Mengembalikan true jika X dan Y valid */
-    for (int i = 5; i < currentKalimat.LengthKalimat; i++){
-        if ((currentKalimat.TabKalimat[i] < 48) || (currentKalimat.TabKalimat[i] > 57) || (currentKalimat.TabKalimat[i] != 32)){
-            return false;
-        }
-    }
-    return true;
-}
+void getWaitHour (Kalimat k, int *hh, int *mm){
+    /* Membelah kalimat menjadi 3 */
+    int i = 0;
+    *hh = 0;
+    *mm = 0;
 
-void getWaitHour (Kalimat currentKalimat, int *hour, int *minute){
-    /* Prekondisi: Wait valid */
-    int i = 5;
-    *hour = 0;
-    *minute = 0;
-    int lenHour;
-    int lenMinute = 0;
-    while (currentKalimat.TabKalimat[i] != ' ')
-    {
+
+    while (k.TabKalimat[i] != ' '){
         i++;
     }
-    lenHour = i;
 
-    for (int j = i+1; j < currentKalimat.LengthKalimat; j++){
-        lenMinute++;
+    i++;
+
+    int j = i;
+    while ((k.TabKalimat[j] != ' ') && (k.TabKalimat[j] != '\n')){
+        j++;
     }
-    
-    int pengali = 1;
-    for (int k = 5 + lenHour - 1; k > 5 ; k--){
-        *hour += (currentKalimat.TabKalimat[k] - 48) * pengali;
+
+    j++;
+
+    int l = j;
+    while (l < k.LengthKalimat){
+        l++;
+    }
+
+    l--;
+
+    int pengali =  1;
+    for (int m = j-2; m >= 5; m--){
+        *hh += pengali * (k.TabKalimat[m] - 48);
         pengali *= 10;
     }
-    pengali = 1;
 
-    for (int l = currentKalimat.LengthKalimat - 1; l > lenHour+2; l--){
-        *minute += (currentKalimat.TabKalimat[l] - 48) * pengali;
+    pengali = 1;
+    for (int n = l; n >= j; n--){
+        *mm += pengali * (k.TabKalimat[n] - 48);
+        pengali *= 10;
     }
+    
+}
+
+
+boolean isWaitValid (Kalimat k){
+    /* True jika command wait valid */
+    int count = 0;
+    if (k.TabKalimat[0] == 'W' &&
+        k.TabKalimat[1] == 'A' &&
+        k.TabKalimat[2] == 'I' &&
+        k.TabKalimat[3] == 'T'){
+            for (int i = 4; i < k.LengthKalimat; i++){
+                if (currentKalimat.TabKalimat[i] == 32){
+                    count++;
+                } else if ((currentKalimat.TabKalimat[i] < 48) || (currentKalimat.TabKalimat[i] > 57)){
+                    return false;
+                }
+            }
+        if (count <= 2){
+            return true;
+        }
+    }
+    return false;
+
+
 }
 
 #endif

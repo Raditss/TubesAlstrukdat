@@ -43,6 +43,8 @@ int main(){
         Kalimat delivery = wordToKalimat(strToWord("DELIVERY."));
         Kalimat mix = wordToKalimat(strToWord("MIX."));
         Kalimat chop = wordToKalimat(strToWord("CHOP."));
+        Kalimat boil = wordToKalimat(strToWord("BOIL."));
+        Kalimat fry = wordToKalimat(strToWord("FRY."));
         Kalimat undo = wordToKalimat(strToWord("UNDO."));
         Kalimat redo = wordToKalimat(strToWord("REDO."));
         Kalimat catalog = wordToKalimat(strToWord("CATALOG."));
@@ -108,10 +110,11 @@ int main(){
                 // Menjalankan fungsi MOVE
                 moveCommandV2(&UserPeta(sim),&realTime,currentKalimat,&isValid);
 
-            } else if (isWaitCommand(currentKalimat) && isWaitCommandValid(currentKalimat)){
+            } else if (isWaitValid(currentKalimat)){
                 // Menjalankan fungsi wait
                 getWaitHour(currentKalimat, &hh, &mm);
-                WAIT(&realTime,hh,mm);
+                WAITV2(&realTime,hh,mm);
+                isValid = true;
             
             } else if (isKalimatEqual(currentKalimat,exit)){
                 // Menjalankan fungsi EXIT
@@ -133,6 +136,14 @@ int main(){
 
             } else if (isKalimatEqual(currentKalimat,chop)){
                 // Menjalankan fungsi CHOP
+
+
+            } else if (isKalimatEqual(currentKalimat,boil)){
+                // Menjalankan fungsi BOIL
+
+
+            } else if (isKalimatEqual(currentKalimat,fry)){
+                // Menjalankan fungsi FRY
 
 
             } else if (isKalimatEqual(currentKalimat,undo)){

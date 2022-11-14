@@ -1,12 +1,22 @@
 
 #include "../header/COOKBOOK.h"
-#include "../header/UNDO_REDO.h"
+#include "../Function/splash.c"
+#include "../header/pemesanan.h"
+#include "../header/pengolahan.h"
 
 int main(){
     
+        
+        /* Splash Screen dan START */
+        //splash();
+        printf("Welcome to Diner Dash CLI Edition!\n");
+
         /* Mendapatkan daftar makanan */
         ListStatik daftarMakanan = readFileMakananListStatik("../../bin/menumakanan.txt");
         
+        /* Mendapatkan daftar makanan KHUSUS BUY */
+        ListStatik buyAbleFood = isBuyAble(daftarMakanan);
+
         /* Mendapatkan daftar resep */
         KumpulanTree daftarResep; 
         resepReader(&daftarResep, "../../bin/resepmakanan.txt");
@@ -18,8 +28,8 @@ int main(){
 
         /* Membentuk simulator */
         Simulator sim;
-        printf("Masukkan nama simulator: ");
-        STARTKALIMAT();
+        //printf("Please enter your name: ");
+        //STARTKALIMAT();
         createSimulator(&sim, kalimatToWord(currentKalimat), peta);
 
         /* Melakukan set time ke 00:00:00 */
@@ -39,12 +49,16 @@ int main(){
         Kalimat cookbook = wordToKalimat(strToWord("COOKBOOK."));
         Kalimat rekomendasi = wordToKalimat(strToWord("REKOMENDASI."));
         Kalimat kulkas = wordToKalimat(strToWord("KULKAS."));
+        Kalimat boil = wordToKalimat(strToWord("BOIL."));
+        Kalimat fry = wordToKalimat(strToWord("FRY."));
+        Kalimat inventory = wordToKalimat(strToWord("INVENTORY."));
 
         /* Deklarasi REKOMENDASI MAKANAN */
         Rekomendasi_STACK Rekomendasi_Makanan;
 
         /* Deklarasi DELIVERY */
         PrioQueueTime DELIVERY;
+        MakeEmptyFood(&DELIVERY, 200);
 
         /* Deklarasi STACK UNDO REDO */        
         Stack_Undo_Redo stack_UTAMA;
@@ -64,9 +78,34 @@ int main(){
         NOTIF_STACK Notifikasi;
         CreateEmptyNotif(&Notifikasi);
 
+        /* Deklarasi jam dan menit untuk WAIT */
+        int hh;
+        int mm;
+
+        /* Syarat mulai */
+        boolean x = true;
+        
+        Makanan val;
+        FoodType vals;
+        Info(vals) = val;
+        TIME_LEFT(vals) = 20;
+        
+        // uji coba
+        val = ELMT_LIST_STATIK(daftarMakanan, 0);
+            Info(vals) = val;
+            TIME_LEFT(vals) = 20;
+            EnqueueFood(&UserInventory(sim), vals);
+            val = ELMT_LIST_STATIK(daftarMakanan, 2);
+            Info(vals) = val;
+            TIME_LEFT(vals) = 20;
+            EnqueueFood(&UserInventory(sim), vals);
+        val = ELMT_LIST_STATIK(daftarMakanan, 17);
+            Info(vals) = val;
+            TIME_LEFT(vals) = 20;
+            EnqueueFood(&UserInventory(sim), vals);
 
         /* PROGRAM UTAMA */
-        while (true){
+        while (x){
 
             /* Display bentuk simulator saat ini */
             printf("============================================================================\n");
@@ -80,25 +119,33 @@ int main(){
                 // Menjalankan fungsi MOVE
                 moveCommandV2(&UserPeta(sim),&realTime,currentKalimat,&isValid);
 
+            } else if (isWaitCommand(currentKalimat) && isWaitCommandValid(currentKalimat)){
+                // Menjalankan fungsi wait
+                getWaitHour(currentKalimat, &hh, &mm);
+                WAIT(&realTime,hh,mm);
+            
             } else if (isKalimatEqual(currentKalimat,exit)){
                 // Menjalankan fungsi EXIT
                 break;
 
             } else if (isKalimatEqual(currentKalimat,buy)){
                 // Menjalankan fungsi BUY
-
+                BUY(sim, &buyAbleFood, &DELIVERY, realTime);
+                realTime = NextMinute(realTime);
 
             } else if (isKalimatEqual(currentKalimat,delivery)){
                 // Menjalankan fungsi DELIVERY
+                displayDelivery(DELIVERY);
 
 
             } else if (isKalimatEqual(currentKalimat,mix)){
                 // Menjalankan fungsi MIX
+                MIX(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi);
 
 
             } else if (isKalimatEqual(currentKalimat,chop)){
                 // Menjalankan fungsi CHOP
-
+            
 
             } else if (isKalimatEqual(currentKalimat,undo)){
                 // Menjalankan fungsi UNDO
@@ -127,7 +174,16 @@ int main(){
                 // Menjalankan fungsi KULKAS
 
             
-            } else {
+            } else if (isKalimatEqual(currentKalimat, boil)){
+                BOIL(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi);
+            
+            } else if (isKalimatEqual(currentKalimat, fry)){
+                FRY(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi);
+            }
+            else if (isKalimatEqual(currentKalimat, inventory)){
+                PrintPrioQueueTimeFood(UserInventory(sim));
+            }
+            else {
                 printf("== Masukan Tidak Valid == \n");
             }
 
@@ -141,12 +197,13 @@ int main(){
 
             /* Pengoperasian STACK NOTIFIKASI */
 
-
+            /* Pengecekan time disini */
 
         }
-        
-        
 
+        // command exit
+        
+        
 
 
     return 0;

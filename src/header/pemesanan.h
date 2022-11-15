@@ -4,13 +4,13 @@
 #include "UNDO_REDO.h"
 
 
-void BUY(Simulator sim,ListStatik *daftar, PrioQueueTime *belanjaan, TIME globalTime){
+void BUY(Simulator sim,ListStatik *daftar, PrioQueueTime *belanjaan, TIME globalTime, boolean *isValid){
     /* Membeli makanan dengan id tertentu */
     /* I.S daftar dan belanjaan terdefinisi */
     /* F.S daftar dan belanjaan terdefinisi */
     /* Proses: menghapus makanan dengan id tertentu dari daftar dan menambahkannya ke belanjaan */
 
-    if (isClose((sim).LokasiPengguna,'B')){
+    if (isClose((sim).LokasiPengguna,'T')){
         printf("======================\n");
         printf("=        BUY         =\n");
         printf("======================\n");
@@ -26,6 +26,7 @@ void BUY(Simulator sim,ListStatik *daftar, PrioQueueTime *belanjaan, TIME global
             EnqueueFood(belanjaan, x);
             printf("Makanan berhasil dicheckout!\n");
             printf("Silahkan menunggu makanan sampai di lokasi Anda!\n");
+            *isValid = true;
         } else {
             printf("ID tidak ditemukan\n");
         }
@@ -37,11 +38,6 @@ void BUY(Simulator sim,ListStatik *daftar, PrioQueueTime *belanjaan, TIME global
     }
 }
 
-void displayDelivery(PrioQueueTime belanjaan){
-
-    PrintPrioQueueTimeFood(belanjaan);
-
-}
 
 
 #endif

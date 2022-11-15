@@ -70,6 +70,7 @@ void displayNotif(NOTIF_STACK *S){
     if (IsEmptyNotif(*S)){
         printf("Notifikasi: - \n");
     } else {
+        printf("Notifikasi: \n");
         while (!IsEmptyNotif(*S)){
             i++;
             PopNotif(S, &val);
@@ -77,6 +78,15 @@ void displayNotif(NOTIF_STACK *S){
             DisplayWord(val);
         }
     }
+}
+
+void clearNotif(NOTIF_STACK *S){
+/* Mengosongkan stack notifikasi */
+    notifType val;
+    while (!IsEmptyNotif(*S)){
+        PopNotif(S,&val);
+    }
+    
 }
 
 #endif

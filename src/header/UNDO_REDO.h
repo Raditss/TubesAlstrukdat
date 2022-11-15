@@ -37,7 +37,7 @@ void CreateEmptyUndoRedo(Stack_Undo_Redo *S){
 /* jadi indeksnya antara 0.. MaxEl */
 /* Ciri stack kosong : TOP bernilai Nil */
     (*S).T = (UndoRedoType *)malloc((MaxUNDO) * sizeof(UndoRedoType));
-    UNDO_REDO_TOP(*S) = Nil;
+    UNDO_REDO_TOP(*S) = -1;
 }
 
 void createUndoRedoType (UndoRedoType *proses_saat_ini, Simulator sim, TIME realTime, PrioQueueTime delivery){
@@ -61,13 +61,28 @@ boolean IsFullUndoRedo(Stack_Undo_Redo S){
     return UNDO_REDO_TOP(S) == MaxUNDO - 1;
 }
 
+UndoRedoType copyStackElmt(UndoRedoType s){
+/* Mengembalikan copy dari s */
+    PrioQueueTime del = copyPrioQueue(DELIVERY_PROSES(s));
+    Simulator sim = SIMULASI_PROSES(s);
+    TIME realTime = TIME_PROSES(s);
+    UndoRedoType top;
+    createUndoRedoType(&top,sim,realTime,del);
+    return top;
+}
+
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
 void PushUndoRedo(Stack_Undo_Redo * S, UndoRedoType X){
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
-    UNDO_REDO_TOP(*S) += 1; //kalau kosong dari -1 jadi 1 (sama aja)
-    INFO_UNDO_REDO(*S) = (X);
+    UNDO_REDO_TOP(*S)++; //kalau kosong dari -1 jadi 1 (sama aja)
+    INFO_UNDO_REDO(*S) = copyStackElmt(X);
+    Head(DELIVERY_PROSES(INFO_UNDO_REDO(*S))) = Head(DELIVERY_PROSES(X));
+    Tail(DELIVERY_PROSES(INFO_UNDO_REDO(*S))) = Tail(DELIVERY_PROSES(X));
+    // DELIVERY_PROSES(INFO_UNDO_REDO(*S)) = DELIVERY_PROSES(X);
+    // TIME_PROSES(INFO_UNDO_REDO(*S)) = TIME_PROSES(X);
+    // SIMULASI_PROSES(INFO_UNDO_REDO(*S)) = SIMULASI_PROSES(X);
 }
 
 /* ************ Menghapus sebuah elemen Stack ************ */
@@ -121,5 +136,7 @@ void clearProses(Stack_Undo_Redo *redo){
         PopUndoRedo(redo,&val);
     }
 }
+
+
 
 #endif

@@ -35,6 +35,13 @@ typedef struct {
 #define Elmt(Q,i)       (Q).T[(i)]
 
 /* ********* Prototype ********* */
+void makeFoodType (FoodType *tipe, int time, Makanan food){
+    /* Membuat foodtype dari time dan food */
+    tipe->time_left = time;
+    tipe->food = food;
+}
+
+
 boolean IsEmptyFood (PrioQueueTime Q){
 /* Mengirim true jika Q kosong: lihat definisi di atas */
     return (Head(Q) == NilFood) && (Tail(Q) == NilFood);
@@ -162,6 +169,63 @@ void PrintPrioQueueTimeFood (PrioQueueTime Q){
 
 }
 
+void displayTime (TIME t){
+/* Melakukan display time dengan format dd hari hh jam mm menit */
+    if (Day(t) > 0){
+        printf("%d hari ", Day(t));
+    }
+    if (Hour(t) > 0){
+        printf("%d jam ", Hour(t));
+    }
+    if (Minute(t) > 0){
+        printf("%d menit ", Minute(t));
+    }
+}
+
+void displayDelivery(PrioQueueTime Q, TIME realTime){
+/* Melakukan display pada DELIVERY */
+    PrioQueueTime temp = Q;
+    FoodType val;
+    int i = 1;
+    printf("Daftar barang yang sedang diantar: \n");
+    if (IsEmptyFood(temp)){
+        printf("\tTidak ada barang yang sedang diantar\n");
+    } else {
+        while (!IsEmptyFood(temp)){
+            DequeueFood(&temp, &val);
+            printf("\t%d. ",i);
+            DisplayWordNoEnter(NAMA(Info(val)));
+            printf(" - ");
+            displayTime(MinuteToTIME(TIME_LEFT(val) - TIMEToMinute(realTime)));
+            i++;
+            printf("\n");
+        }
+    }
+    printf("\n");
+}
+
+void displayInventory(PrioQueueTime Q, TIME realTime){
+/* Melakukan display terhadap INVENTORY */
+    PrioQueueTime temp = Q;
+    FoodType val;
+    int i = 1;
+    printf("Daftar isi INVENTORY: \n");
+    if (IsEmptyFood(temp)){
+        printf("\tTidak ada barang dalam INVENTORY\n");
+    } else {
+        while (!IsEmptyFood(temp)){
+            DequeueFood(&temp, &val);
+            printf("\t%d. ",i);
+            DisplayWordNoEnter(NAMA(Info(val)));
+            printf(" - ");
+            displayTime(MinuteToTIME(TIME_LEFT(val) - TIMEToMinute(realTime)));
+            i++;
+            printf("\n");
+        }
+    }
+    printf("\n");
+}
+
 void IsValidFood (PrioQueueTime *P) {
     // I.S P terdefinisi
     // F.S makanan yang expired dihapus dari P lalu di-print.
@@ -196,6 +260,20 @@ void MinusTime(PrioQueueTime *P, int selama_apa) {
             }
         }
     }
+}
+
+PrioQueueTime copyPrioQueue (PrioQueueTime Q){
+/* copy Q lalu dikembalikan dalam address yang berbeda */
+    PrioQueueTime temp = Q;
+    PrioQueueTime Q2;
+    MakeEmptyFood(&Q2, CAPACITY);
+    FoodType val;
+    while (!IsEmptyFood(temp))
+    {
+        DequeueFood(&temp,&val);
+        EnqueueFood(&Q2,val);
+    }
+    return Q2;
 }
 
 #endif

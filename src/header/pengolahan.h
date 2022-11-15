@@ -74,12 +74,16 @@ void olahInventory(Simulator *sim, Akar resep, ListStatik daftarMakanan, TIME *r
         removeInventory(sim, bahan);
         P = SIBLING(P);
     }
-    hasil = ELMT_LIST_STATIK(daftarMakanan, searchID(daftarMakanan, INFO_TREE(resep)));
+    ID(hasil) = ID(ELMT_LIST_STATIK(daftarMakanan, searchID(daftarMakanan, INFO_TREE(resep))));
+    NAMA(hasil) = NAMA(ELMT_LIST_STATIK(daftarMakanan, searchID(daftarMakanan, INFO_TREE(resep))));
+    EXP(hasil) = EXP(ELMT_LIST_STATIK(daftarMakanan, searchID(daftarMakanan, INFO_TREE(resep))));
+    DTIME(hasil) = DTIME(ELMT_LIST_STATIK(daftarMakanan, searchID(daftarMakanan, INFO_TREE(resep))));
+    LOC(hasil) = LOC(ELMT_LIST_STATIK(daftarMakanan, searchID(daftarMakanan, INFO_TREE(resep))));
     addInventory(sim, hasil, *realTime, NS);
 }
 
 
-void Olah(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, TIME *realTime, NOTIF_STACK *NS, char loc[5]) {
+void Olah(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, TIME *realTime, NOTIF_STACK *NS, char loc[5], boolean *isValid) {
     /* Mix resep menjadi makanan */
     /* I.S. Resep terdefinisi */
     /* F.S. Resep menjadi makanan */
@@ -109,6 +113,8 @@ void Olah(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, 
         if (isEmptyListStatik(tidakAda)) {
             olahInventory(sim, resep, daftarInformasi, realTime, NS);
             printf("%s selesai dibuat dan sudah masuk ke inventory!\n", NAMA(hasil).TabWord);
+            *isValid = true;
+
         } else {
             printf("Gagal membuat %s karena kamu tidak memiliki bahan berikut:\n", NAMA(ELMT_LIST_STATIK(l, input-1)).TabWord);
             printOlahAble(tidakAda);
@@ -116,12 +122,12 @@ void Olah(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, 
     }
 }
 
-void MIX(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, TIME *realTime, NOTIF_STACK *NS) {
+void MIX(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, TIME *realTime, NOTIF_STACK *NS, boolean *isValid) {
     if (isClose(UserPeta(*sim), 'M')) {
         printf("======================\n");
         printf("=        MIX         =\n");
         printf("======================\n");
-        Olah(sim, daftarResep, daftarInformasi, realTime, NS, "Mix.");
+        Olah(sim, daftarResep, daftarInformasi, realTime, NS, "Mix.", isValid);
         *realTime = NextMinute(*realTime);
     } else {
         printf("Anda tidak berada di dekat MIXER.\n");
@@ -131,7 +137,7 @@ void MIX(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, T
 
 
 
-void CHOP(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, TIME *realTime, NOTIF_STACK *NS) {
+void CHOP(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, TIME *realTime, NOTIF_STACK *NS, boolean *isValid) {
     /* Chop resep menjadi makanan */
     /* I.S. Resep terdefinisi */
     /* F.S. Resep menjadi makanan */
@@ -141,14 +147,14 @@ void CHOP(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, 
         printf("======================\n");
         printf("=        CHOP        =\n");
         printf("======================\n");
-        Olah(sim, daftarResep, daftarInformasi, realTime, NS, "Chop.");
+        Olah(sim, daftarResep, daftarInformasi, realTime, NS, "Chop.",isValid);
         *realTime = NextMinute(*realTime);
     } else {
         printf("Anda tidak berada di dekat CHOPPER.\n");
     }
 }
 
-void FRY(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, TIME *realTime, NOTIF_STACK *NS) {
+void FRY(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, TIME *realTime, NOTIF_STACK *NS, boolean *isValid) {
     /* Fry resep menjadi makanan */
     /* I.S. Resep terdefinisi */
     /* F.S. Resep menjadi makanan */
@@ -158,14 +164,14 @@ void FRY(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, T
         printf("======================\n");
         printf("=        FRY         =\n");
         printf("======================\n");
-        Olah(sim, daftarResep, daftarInformasi, realTime, NS, "Fry.");
+        Olah(sim, daftarResep, daftarInformasi, realTime, NS, "Fry.", isValid);
         *realTime = NextMinute(*realTime);
     } else {
         printf("Anda tidak berada di dekat FRYER.\n");
     }
 }
 
-void BOIL(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, TIME *realTime, NOTIF_STACK *NS) {
+void BOIL(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, TIME *realTime, NOTIF_STACK *NS, boolean *isValid) {
     /* Boil resep menjadi makanan */
     /* I.S. Resep terdefinisi */
     /* F.S. Resep menjadi makanan */
@@ -175,7 +181,7 @@ void BOIL(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, 
         printf("======================\n");
         printf("=        BOIL        =\n");
         printf("======================\n");
-        Olah(sim, daftarResep, daftarInformasi, realTime, NS, "Boil.");
+        Olah(sim, daftarResep, daftarInformasi, realTime, NS, "Boil.", isValid);
         *realTime = NextMinute(*realTime);
     } else {
         printf("Anda tidak berada di dekat BOILER.\n");

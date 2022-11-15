@@ -38,11 +38,18 @@ void addInventory (Simulator *sim, Makanan food, TIME realTime, NOTIF_STACK *NS)
     /*      stak notifikasi bertambah saat makanan masuk ke inventory */
     FoodType foodType;
     Word diterima = strToWord("sudah diterima oleh BNMO.");
-    notifType notifikasi;
-    notifikasi = mergeWord(NAMA(food), diterima);
-    PushNotif(NS,notifikasi);
-    TIME_LEFT(foodType) = TIMEToMinute(EXP(food)) + TIMEToMinute(realTime);
+    foodType.time_left = 0;
+    // printf("%d\n", foodType.time_left);
+    TIME temp = food.expired;
+    foodType.time_left += TIMEToMinute(temp);
+    // printf("%d\n", foodType.time_left);
+    foodType.time_left += TIMEToMinute(realTime);
     Info(foodType) = food;
+    notifType notifikasi;
+    Word tempWord = food.nama;
+    notifikasi = mergeWord(tempWord, diterima); // Lewat sini menghilangkan food
+    PushNotif(NS,notifikasi);
+
 
     EnqueueFood(&UserInventory(*sim), foodType);
 }
@@ -63,7 +70,28 @@ void removeInventory (Simulator *sim, Makanan food){
         DequeueFood(&sim2, &val);
         EnqueueFood(&UserInventory(*sim), val);
     }
-    
+
+}
+
+void removeDelivery (Simulator *sim, PrioQueueTime *del, TIME realTime, NOTIF_STACK *NS){
+/* Menghapus makanan dari delivery (jika sudah sampai) */
+/* I.S. Sembarang */
+/* F.S. Jika makanan sudah sampai maka akan dipindahkan ke inventory */
+    FoodType val;
+    notifType notifikasi; // brb
+    Word sampai = strToWord("telah diterima.");
+    int newKadal;
+    if (!IsEmptyFood(*del)){
+        while (!IsEmptyFood(*del) && (TIME_LEFT(InfoHead(*del)) <= TIMEToMinute(realTime))){
+            DequeueFood(del,&val);
+            newKadal = TIME_LEFT(val) + TIMEToMinute(EXP(Info(val)));
+            TIME_LEFT(val) = newKadal;
+            EnqueueFood(&UserInventory(*sim), val);
+            
+            notifikasi = mergeWord(NAMA(Info(val)), sampai);
+            PushNotif(NS, notifikasi);
+        }
+    }
 
 }
 
@@ -77,13 +105,15 @@ void removeExpired (Simulator *sim, TIME realTime, NOTIF_STACK *NS){
     notifType notifikasi;
     Word namaTrashFood;
     Word kadaluarsa = strToWord("telah kadaluarsa :(.");
-    while (TIME_LEFT(InfoHead(UserInventory(*sim))) <= TIMEToMinute(realTime) && !IsEmptyFood(UserInventory(*sim)))
-    {
-        DequeueFood(&UserInventory(*sim), &val);
-        namaTrashFood = NAMA(Info(val));
-        notifikasi = mergeWord(namaTrashFood, kadaluarsa);
-        PushNotif(NS, notifikasi);
+    if (!IsEmptyFood(UserInventory(*sim))){
+        while (!IsEmptyFood(UserInventory(*sim)) && (TIME_LEFT(InfoHead(UserInventory(*sim))) <= TIMEToMinute(realTime))){
+            DequeueFood(&UserInventory(*sim),&val);
+            
+            notifikasi = mergeWord(NAMA(Info(val)), kadaluarsa);
+            PushNotif(NS, notifikasi);
+        }
     }
+
 }
 
 void displaySimulator (Simulator sim){
@@ -95,7 +125,7 @@ void displaySimulator (Simulator sim){
     PrintPrioQueueTimeFood(UserInventory(sim)); 
 }
 
-void displayBasic (Simulator sim, TIME realTime, NOTIF_STACK *notif){
+void displayBasic (Simulator sim, TIME realTime, NOTIF_STACK *notif, boolean frontNotif){
     /* Menampilkan bentuk simulator saat ini */
     /* Menampilkan waktu saat ini */
     /* Menampilkan notifikasi saat ini */
@@ -106,7 +136,11 @@ void displayBasic (Simulator sim, TIME realTime, NOTIF_STACK *notif){
     DisplayPosisiV2(getPosisi(UserPeta(sim)));
     printf("Waktu saat ini: ");
     TulisTIME(realTime);
-    displayNotif(notif);
+    if (frontNotif){
+        displayNotif(notif);
+    } else {
+        clearNotif(notif);
+    }
     displayMatrix(UserPeta(sim));
 }
 
@@ -196,21 +230,30 @@ void getWaitHour (Kalimat k, int *hh, int *mm){
 
 boolean isWaitValid (Kalimat k){
     /* True jika command wait valid */
-    int count = 0;
     if (k.TabKalimat[0] == 'W' &&
         k.TabKalimat[1] == 'A' &&
         k.TabKalimat[2] == 'I' &&
-        k.TabKalimat[3] == 'T'){
-            for (int i = 4; i < k.LengthKalimat; i++){
-                if (currentKalimat.TabKalimat[i] == 32){
-                    count++;
-                } else if ((currentKalimat.TabKalimat[i] < 48) || (currentKalimat.TabKalimat[i] > 57)){
+        k.TabKalimat[3] == 'T' &&
+        k.TabKalimat[4] == ' '){
+            int i = 5;
+            boolean valid = false;
+            while (k.TabKalimat[i] != ' ' && i < k.LengthKalimat){
+                valid = true;
+                i++;
+            }
+            
+            i++;
+            if (i >= k.LengthKalimat){
+                return false;
+            }
+
+            for (i; i < k.LengthKalimat; i++){
+                if ((currentKalimat.TabKalimat[i] < 48) || (currentKalimat.TabKalimat[i] > 57)){
                     return false;
                 }
             }
-        if (count <= 2){
-            return true;
-        }
+        return valid;
+
     }
     return false;
 

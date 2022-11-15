@@ -2,6 +2,7 @@
 #include "../header/COOKBOOK.h"
 #include "../Function/splash.c"
 #include "../header/pemesanan.h"
+#include "../header/pengolahan.h"
 
 
 int main(){
@@ -51,6 +52,7 @@ int main(){
         Kalimat cookbook = wordToKalimat(strToWord("COOKBOOK."));
         Kalimat rekomendasi = wordToKalimat(strToWord("REKOMENDASI."));
         Kalimat kulkas = wordToKalimat(strToWord("KULKAS."));
+        Kalimat inventory = wordToKalimat(strToWord("INVENTORY."));
 
         /* Deklarasi REKOMENDASI MAKANAN */
         Rekomendasi_STACK Rekomendasi_Makanan;
@@ -81,6 +83,11 @@ int main(){
         int hh;
         int mm;
 
+        /* Deklarasi frontNotif untuk menampilkan notifikasi maju */
+        /*           backNotif untuk menampilkan notifikasi mundur */
+        boolean frontNotif;
+        boolean backNotif;
+
         /* Syarat mulai */
         boolean x = true;
         while (x){
@@ -100,8 +107,11 @@ int main(){
 
             /* Display bentuk simulator saat ini */
             printf("============================================================================\n");
-            displayBasic(sim,realTime,&Notifikasi);
+            displayBasic(sim,realTime,&Notifikasi,frontNotif);
             printf("============================================================================\n");
+
+            frontNotif = true;
+            backNotif = !frontNotif;
             isValid = false;
 
             printf("Masukkan command: ");
@@ -122,34 +132,34 @@ int main(){
 
             } else if (isKalimatEqual(currentKalimat,buy)){
                 // Menjalankan fungsi BUY
-                BUY(sim, &buyAbleFood, &DELIVERY, realTime);
+                BUY(sim, &buyAbleFood, &DELIVERY, realTime, &isValid);
                 realTime = NextMinute(realTime);
 
             } else if (isKalimatEqual(currentKalimat,delivery)){
                 // Menjalankan fungsi DELIVERY
-                displayDelivery(DELIVERY);
-
+                displayDelivery(DELIVERY, realTime);
 
             } else if (isKalimatEqual(currentKalimat,mix)){
                 // Menjalankan fungsi MIX
-
+                MIX(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
 
             } else if (isKalimatEqual(currentKalimat,chop)){
                 // Menjalankan fungsi CHOP
-
+                CHOP(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
 
             } else if (isKalimatEqual(currentKalimat,boil)){
                 // Menjalankan fungsi BOIL
-
+                BOIL(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
 
             } else if (isKalimatEqual(currentKalimat,fry)){
                 // Menjalankan fungsi FRY
-
+                FRY(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
 
             } else if (isKalimatEqual(currentKalimat,undo)){
                 // Menjalankan fungsi UNDO
                 UNDO(&stack_UTAMA,&stack_REDO);
                 getProses(stack_UTAMA,&realTime,&sim,&DELIVERY);
+                frontNotif = false;
 
             } else if (isKalimatEqual(currentKalimat,redo)){
                 // Menjalankan fungsi REDO
@@ -172,6 +182,10 @@ int main(){
             } else if (isKalimatEqual(currentKalimat,kulkas)){
                 // Menjalankan fungsi KULKAS
 
+
+            } else if (isKalimatEqual(currentKalimat, inventory)){
+                // Mengecek isi dari inventory
+                displayInventory(UserInventory(sim),realTime);
             
             } else {
                 printf("== Masukan Tidak Valid == \n");
@@ -185,9 +199,18 @@ int main(){
                 clearProses(&stack_REDO);
             }
 
+            
+            /* Pengecekan DELIVERY dan TIME */
+            removeDelivery(&sim,&DELIVERY,realTime,&Notifikasi);
+
+            
+            /* Pengecekan INVENTORY dan TIME */
+            removeExpired(&sim,realTime,&Notifikasi);    
+
+
             /* Pengoperasian STACK NOTIFIKASI */
 
-            /* Pengecekan time disini */
+
 
         }
 

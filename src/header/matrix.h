@@ -199,7 +199,8 @@ boolean moveCommand (Matrix *M, Word command){
     return valid;
 }
 
-
+boolean isTeleportCommand (Kalimat k);
+void getCoordinate (Kalimat k, int *absis, int *ordinat);
 void moveCommandV2 (Matrix *M, TIME *realTime, Kalimat perintah, boolean *isValid){
     /* I.S. Matrix sembarang */
     /* F.S. Jika move valid, S akan bergeser sesuai perintah */
@@ -259,6 +260,102 @@ void moveCommandV2 (Matrix *M, TIME *realTime, Kalimat perintah, boolean *isVali
     } else {
         printf("Masukan tidak valid!\n");
     }
+}
+
+void teleport (Matrix *M, TIME *realTime, Kalimat perintah, boolean *isValid){
+/* Teleport memerlukan waktu 10 menit */
+    int x,y;
+    Posisi P = getPosisi(*M);
+    if (isTeleportCommand(perintah)){
+        getCoordinate(perintah,&x,&y);
+        if (ELMT(*M,x+1,y+1) == ' '){
+            ELMT(*M, ROW_POSISI(P), COL_POSISI(P)) = ' ';
+            *isValid = true;
+            *realTime = NextNMinute(*realTime,10);
+            ELMT(*M, x+1, y+1) = 'S';
+            printf("Berhasil teleport\n");
+        } else {
+            printf("Gagal berpindah\n");
+        }
+    } else {
+        printf("Gagal berpindah\n");
+    }
+
+}
+
+void getCoordinate (Kalimat k, int *absis, int *ordinat){
+/* Membelah kalimat menjadi 3 */
+    int i = 0;
+    *absis = 0;
+    *ordinat = 0;
+
+
+    while (k.TabKalimat[i] != ' '){
+        i++;
+    }
+
+    i++;
+
+    int j = i;
+    while ((k.TabKalimat[j] != ' ') && (k.TabKalimat[j] != '\n')){
+        j++;
+    }
+
+    j++;
+
+    int l = j;
+    while (l < k.LengthKalimat){
+        l++;
+    }
+
+    l--;
+
+    int pengali =  1;
+    for (int m = j-2; m >= 9; m--){
+        *absis += pengali * (k.TabKalimat[m] - 48);
+        pengali *= 10;
+    }
+
+    pengali = 1;
+    for (int n = l; n >= j; n--){
+        *ordinat += pengali * (k.TabKalimat[n] - 48);
+        pengali *= 10;
+    }
+    
+}
+
+boolean isTeleportCommand (Kalimat k){
+/* True jika command teleport valid */
+    if (k.TabKalimat[0] == 'T' &&
+        k.TabKalimat[1] == 'E' &&
+        k.TabKalimat[2] == 'L' &&
+        k.TabKalimat[3] == 'E' &&
+        k.TabKalimat[4] == 'P' &&
+        k.TabKalimat[5] == 'O' &&
+        k.TabKalimat[6] == 'R' &&
+        k.TabKalimat[7] == 'T' &&
+        k.TabKalimat[8] == ' '){
+            int i = 9;
+            boolean valid = false;
+            while (k.TabKalimat[i] != ' ' && i < k.LengthKalimat){
+                valid = true;
+                i++;
+            }
+            
+            i++;
+            if (i >= k.LengthKalimat){
+                return false;
+            }
+
+            for (i; i < k.LengthKalimat; i++){
+                if ((currentKalimat.TabKalimat[i] < 48) || (currentKalimat.TabKalimat[i] > 57)){
+                    return false;
+                }
+            }
+        return valid;
+
+    }
+    return false;
 }
 
 boolean isClose (Matrix M, char c){

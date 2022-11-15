@@ -119,6 +119,10 @@ int main(){
             if (isMoveCommand(currentKalimat)){
                 // Menjalankan fungsi MOVE
                 moveCommandV2(&UserPeta(sim),&realTime,currentKalimat,&isValid);
+            
+            } else if (isTeleportCommand(currentKalimat)){
+                // Menjalankan fungsi TELEPORT
+                teleport(&UserPeta(sim), &realTime, currentKalimat, &isValid);
 
             } else if (isWaitValid(currentKalimat)){
                 // Menjalankan fungsi wait

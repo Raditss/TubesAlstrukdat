@@ -133,7 +133,7 @@ int main(){
             } else if (isKalimatEqual(currentKalimat,buy)){
                 // Menjalankan fungsi BUY
                 BUY(sim, &buyAbleFood, &DELIVERY, realTime, &isValid);
-                realTime = NextMinute(realTime);
+                if(isValid) realTime = NextMinute(realTime);
 
             } else if (isKalimatEqual(currentKalimat,delivery)){
                 // Menjalankan fungsi DELIVERY

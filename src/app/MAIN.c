@@ -1,8 +1,10 @@
 
 #include "../header/COOKBOOK.h"
 #include "../Function/splash.c"
+#include "../Function/quit.c"
 #include "../header/pemesanan.h"
 #include "../header/pengolahan.h"
+
 
 
 int main(){
@@ -218,7 +220,7 @@ int main(){
 
         }
 
-        // command exit
+        quit();
         
         
 

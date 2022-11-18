@@ -2,11 +2,23 @@
 #include <stdio.h>
 
 void quit(){
-    printf("Terimakasih sudah menggunakan program kami!\n");
-    exit(0);
+    FILE *fptr;
+    fptr=fopen("../../bin/bmobye.txt", "r");
+    if (fptr == NULL)
+    {
+        printf("Cannot open file \n");
+        exit(0);
+    }
+    char filename[100], c;
+    // Read contents from file
+    c = fgetc(fptr);
+    while (c != EOF)
+    {
+        printf ("%c", c);
+        c = fgetc(fptr);
+    }
+
+    fclose(fptr);
 }
 
-int main(){
-    quit();
-    return 0;
-}
+

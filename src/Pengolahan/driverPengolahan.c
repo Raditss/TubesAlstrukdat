@@ -111,7 +111,6 @@ int main(){
                 printf("------------------------------------------------\n");
 
             
-        displayInventory(UserInventory(sim), realTime);
         
 
 

@@ -128,7 +128,7 @@ void MIX(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, T
         printf("=        MIX         =\n");
         printf("======================\n");
         Olah(sim, daftarResep, daftarInformasi, realTime, NS, "Mix.", isValid);
-        *realTime = NextMinute(*realTime);
+        *realTime = NextNMinute(*realTime,3);
     } else {
         printf("Anda tidak berada di dekat MIXER.\n");
     }
@@ -148,7 +148,7 @@ void CHOP(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, 
         printf("=        CHOP        =\n");
         printf("======================\n");
         Olah(sim, daftarResep, daftarInformasi, realTime, NS, "Chop.",isValid);
-        *realTime = NextMinute(*realTime);
+        *realTime = NextNMinute(*realTime,4);
     } else {
         printf("Anda tidak berada di dekat CHOPPER.\n");
     }
@@ -165,7 +165,7 @@ void FRY(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, T
         printf("=        FRY         =\n");
         printf("======================\n");
         Olah(sim, daftarResep, daftarInformasi, realTime, NS, "Fry.", isValid);
-        *realTime = NextMinute(*realTime);
+        *realTime = NextNMinute(*realTime,5);
     } else {
         printf("Anda tidak berada di dekat FRYER.\n");
     }
@@ -182,7 +182,7 @@ void BOIL(Simulator *sim, KumpulanTree daftarResep, ListStatik daftarInformasi, 
         printf("=        BOIL        =\n");
         printf("======================\n");
         Olah(sim, daftarResep, daftarInformasi, realTime, NS, "Boil.", isValid);
-        *realTime = NextMinute(*realTime);
+        *realTime = NextNMinute(*realTime,6);
     } else {
         printf("Anda tidak berada di dekat BOILER.\n");
     }

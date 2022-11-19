@@ -7,7 +7,7 @@
 
 #define MaxNotif 100
 
-#include "wordmachine.h"
+#include "../WordMachine/wordmachine.h"
 
 
 typedef Word notifType;

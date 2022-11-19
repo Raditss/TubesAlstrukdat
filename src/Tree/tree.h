@@ -2,7 +2,7 @@
 #define _LINKED_TREE_H_
 
 
-#include "wordmachine.h"
+#include "../WordMachine/wordmachine.h"
 
 /* Definisi Node : */
 typedef int ElTypeTree;

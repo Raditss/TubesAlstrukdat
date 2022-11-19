@@ -1,4 +1,4 @@
-#include "../header/makananedited.h"
+#include "makananedited.h"
 
 
 int main(){

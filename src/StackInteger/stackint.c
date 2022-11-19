@@ -1,4 +1,4 @@
-#include "../header/stackint.h"
+#include "../StackInteger/stackint.h"
 
 /* Driver untuk stackint.h */
 

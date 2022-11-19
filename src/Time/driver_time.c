@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../header/time.h"
+#include "../Time/time.h"
 
 int main(){
     TIME T1, T2;

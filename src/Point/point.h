@@ -1,5 +1,5 @@
 
-#include "boolean.h"
+#include "../Boolean/boolean.h"
 
 #ifndef POINT_H
 #define POINT_H

@@ -1,4 +1,4 @@
-#include "../header/matrix.h"
+#include "matrix.h"
 
 /* Driver untuk matrix.h */
 

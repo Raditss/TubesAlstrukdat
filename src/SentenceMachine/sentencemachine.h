@@ -2,7 +2,7 @@
 #ifndef __MESIN_KALIMAT_H__
 #define __MESIN_KALIMAT_H_
 
-#include "wordmachine.h"
+#include "../WordMachine/wordmachine.h"
 #define maxKalimat 200
 
 typedef struct

@@ -3,8 +3,8 @@
 
 #define MaxRekomendasi 100
 
-#include "string.h"
-#include "stackint.h"
+#include "../WordMachine/wordmachine.h"
+#include "../StackInteger/stackint.h"
 
 typedef int RekomendasiType;
 typedef int RekomendasiAddress;

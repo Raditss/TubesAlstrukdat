@@ -1,4 +1,4 @@
-#include "../header/sentencemachine.h"
+#include "../SentenceMachine/sentencemachine.h"
 
 /* Driver untuk sentencemachine.h */
 

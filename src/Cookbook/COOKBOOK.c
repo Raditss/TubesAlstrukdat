@@ -1,4 +1,4 @@
-#include "../header/COOKBOOK.h"
+#include "COOKBOOK.h"
 
 /* Driver dari COOKBOOK.h */
 

@@ -1,6 +1,6 @@
-#include "sentencemachine.h"
-#include "point.h"
-#include "time.h"
+#include "../SentenceMachine/sentencemachine.h"
+#include "../Point/point.h"
+#include "../Time/time.h"
 
 /* ********** Definisi TYPE Matrix dengan Index dan elemen CHAR ********** */
 

@@ -1,4 +1,4 @@
-#include "../header/tree.h"
+#include "tree.h"
 
 int main(){
     KumpulanTree KT;

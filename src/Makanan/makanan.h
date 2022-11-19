@@ -1,8 +1,8 @@
 #ifndef MAKANAN_H
 #define MAKANAN_H
 
-#include "time.h"
-#include "wordmachine.h"
+#include "../Time/time.h"
+#include "../WordMachine/wordmachine.h"
 
 /* Definisi makanan: */
 typedef struct {

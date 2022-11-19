@@ -1,4 +1,4 @@
-#include "../header/simulator.h"
+#include "simulator.h"
 
 /* Driver untuk MOVE COMMAND */
 

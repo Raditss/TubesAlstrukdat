@@ -1,6 +1,6 @@
 
-#include "../header/makananedited.h"
-#include "../header/point.h"
+#include "../MakananEdited/makananedited.h"
+#include "../Point/point.h"
 
 /* Driver untuk simulator.h */
 

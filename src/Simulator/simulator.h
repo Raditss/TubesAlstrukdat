@@ -1,7 +1,7 @@
 
-#include "queueFood.h"
-#include "matrix.h"
-#include "stackNotif.h"
+#include "../QueueFood/queueFood.h"
+#include "../Matrix/matrix.h"
+#include "../Notifikasi/stackNotif.h"
 
 
 #ifndef _SIMULATOR_H

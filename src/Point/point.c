@@ -1,5 +1,5 @@
-#include "../header/matrix.h"
-#include "../header/point.h"
+#include "../Matrix/matrix.h"
+#include "../Point/point.h"
 
 /* Driver untuk point.h */
 

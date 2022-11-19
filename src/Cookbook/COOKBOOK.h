@@ -1,5 +1,5 @@
-#include "tree.h"
-#include "listStatikFood.h"
+#include "../Tree/tree.h"
+#include "../ListStatikFood/listStatikFood.h"
 
 int searchID(ListStatik daftarInformasi, int IDfood){
     /* mengembalikan indeks ID yang dicari berada */

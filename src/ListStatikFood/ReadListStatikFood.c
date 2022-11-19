@@ -1,4 +1,4 @@
-#include "../header/listStatikFood.h"
+#include "listStatikFood.h"
 
 /* Driver untuk listStatikFood.h untuk pembacaan dan penyimpanan file*/
 

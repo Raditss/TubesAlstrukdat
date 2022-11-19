@@ -4,8 +4,8 @@
 #ifndef __MESINKATA_H__
 #define __MESINKATA_H__
 
-#include "charmachine.h"
-#include "stackint.h"
+#include "../CharMachine/charmachine.h"
+#include "../StackInteger/stackint.h"
 
 #define NMax 50
 #define BLANK ' '

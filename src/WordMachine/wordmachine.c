@@ -1,4 +1,4 @@
-#include "../header/wordmachine.h"
+#include "wordmachine.h"
 
 /* Driver untuk wordmachine.h */
 

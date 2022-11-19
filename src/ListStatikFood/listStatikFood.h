@@ -6,8 +6,8 @@
 #ifndef LIST_STATIK_FOOD_H
 #define LIST_STATIK_FOOD_H
 
-#include "makanan.h"
-#include "string.h"
+#include "../Makanan/makanan.h"
+#include "../WordMachine/wordmachine.h"
 
 /*  Kamus Umum */
 #define CAPACITY_LIST_FOOD 100

@@ -1,7 +1,7 @@
-#include "simulator.h"
-#include "tree.h"
-#include "stackRekomendasi.h"
-#include "listStatikFood.h"
+#include "../Simulator/simulator.h"
+#include "../Tree/tree.h"
+#include "../StackRekomendasi/stackRekomendasi.h"
+#include "../ListStatikFood/listStatikFood.h"
 
 #ifndef REKOMENDASI_H
 #define REKOMENDASI_H

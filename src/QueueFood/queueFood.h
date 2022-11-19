@@ -1,5 +1,5 @@
 
-#include "makanan.h"
+#include "../Makanan/makanan.h"
 
 #ifndef _QUEUE_FOOD_
 #define _QUEUE_FOOD_

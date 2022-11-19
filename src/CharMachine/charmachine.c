@@ -1,4 +1,4 @@
-#include "../header/charmachine.h"
+#include "charmachine.h"
 
 /* Driver untuk charmachine.h */
 

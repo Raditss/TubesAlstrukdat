@@ -1,9 +1,6 @@
 
-#include "../header/COOKBOOK.h"
-#include "splash.c"
-#include "quit.c"
-#include "../header/pemesanan.h"
-#include "../header/pengolahan.h"
+#include "../Cookbook/COOKBOOK.h"
+#include "../Pengolahan/pengolahan.h"
 
 
 

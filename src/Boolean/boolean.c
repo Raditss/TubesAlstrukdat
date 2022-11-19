@@ -1,4 +1,4 @@
-#include "../header/boolean.h"
+#include "boolean.h"
 
 /* Driver untuk boolean.h */
 

@@ -197,14 +197,6 @@ int main(){
                 printf("== Masukan Tidak Valid == \n");
             }
 
-            /* Penyimpanan Undo-able proses dalam STACK */
-            /* Jika ada proses VALID maka stack REDO lenyap */
-            if (isValid){
-                createUndoRedoType(&proses,sim,realTime,DELIVERY);
-                PushUndoRedo(&stack_UTAMA,proses);
-                clearProses(&stack_REDO);
-            }
-
             
             /* Pengecekan DELIVERY dan TIME */
             removeDelivery(&sim,&DELIVERY,realTime,&Notifikasi);
@@ -214,8 +206,13 @@ int main(){
             removeExpired(&sim,realTime,&Notifikasi);    
 
 
-            /* Pengoperasian STACK NOTIFIKASI */
-
+            /* Penyimpanan Undo-able proses dalam STACK */
+            /* Jika ada proses VALID maka stack REDO lenyap */
+            if (isValid){
+                createUndoRedoType(&proses,sim,realTime,DELIVERY);
+                PushUndoRedo(&stack_UTAMA,proses);
+                clearProses(&stack_REDO);
+            }
 
 
         }

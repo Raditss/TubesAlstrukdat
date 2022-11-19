@@ -5,11 +5,14 @@
 #include "../WordMachine/wordmachine.h"
 
 /* Definisi makanan: */
-typedef struct {
+typedef struct
+{
     int id;
     Word nama;
     TIME expired;
     TIME deliveryTime;
+    int panjang;
+    int lebar;
     Word lokasiAksi; // lokasi dilakukannya aksi untuk mendapat makanan tsb.
 } Makanan;
 
@@ -17,10 +20,13 @@ typedef struct {
 #define NAMA(M) (M).nama
 #define EXP(M) (M).expired
 #define DTIME(M) (M).deliveryTime
+#define PANJANG(M) (M).panjang
+#define LEBAR(M) (M).lebar
 #define LOC(M) (M).lokasiAksi
 
- //{ array atau stack atau list of id }
-void CreateMakanan (Makanan *food, Word nama, TIME exp, TIME deliver, Word aksi) {
+//{ array atau stack atau list of id }
+void CreateMakanan(Makanan *food, Word nama, TIME exp, TIME deliver, Word aksi)
+{
     // I.S food sembarang
     // F.S food terdefinisi dengan input nama, exp, deliver, aksi
     ID(*food) = 0;
@@ -30,19 +36,22 @@ void CreateMakanan (Makanan *food, Word nama, TIME exp, TIME deliver, Word aksi)
     LOC(*food) = aksi;
 }
 
-Makanan createEmptyFood(){
+Makanan createEmptyFood()
+{
     /* Membuat makanan kosong */
     Makanan food;
     ID(food) = 0;
     return food;
 }
 
-boolean isEmptyFood(Makanan food){
+boolean isEmptyFood(Makanan food)
+{
     /* Mengembalikan true jika ID makanan = 0 */
     return ID(food) == 0;
 }
 
-void DisplayMakanan (Makanan food) {
+void DisplayMakanan(Makanan food)
+{
     // I.S food terdefinisi
     // F.S menampilkan id, nama, exp, deliver, aksi
     printf("ID makanan: \t\t%d\n", ID(food));
@@ -52,18 +61,27 @@ void DisplayMakanan (Makanan food) {
     TulisTIME(EXP(food));
     printf("Delivery time: \t\t");
     TulisTIME(DTIME(food));
+    printf("Panjang (per satuan): \t\t%d\n", PANJANG(food));
+    printf("Lebar (per satuan): \t\t%d\n", LEBAR(food));
     printf("Lokasi aksi: \t\t");
     DisplayWord(LOC(food));
 }
 
+void DealocMakanan(Makanan *mkn)
+{
+    // I.S mkn terdefinisi
+    // F.S mkn terdealokasi
+    free(mkn);
+}
 
-boolean isFoodEqual (Makanan food1, Makanan food2){
+boolean isFoodEqual(Makanan food1, Makanan food2)
+{
     /* Mengembalikan true jika kedua makanan bernilai sama */
-    return  (ID(food1) == ID(food2)) &&
-            (isWordEqual(NAMA(food1), NAMA(food2))) &&
-            (TEQ(EXP(food1), EXP(food2))) &&
-            (TEQ(DTIME(food1), DTIME(food2))) &&
-            (isWordEqual(LOC(food1), LOC(food2)));
+    return (ID(food1) == ID(food2)) &&
+           (isWordEqual(NAMA(food1), NAMA(food2))) &&
+           (TEQ(EXP(food1), EXP(food2))) &&
+           (TEQ(DTIME(food1), DTIME(food2))) &&
+           (isWordEqual(LOC(food1), LOC(food2)));
 }
 
 #endif

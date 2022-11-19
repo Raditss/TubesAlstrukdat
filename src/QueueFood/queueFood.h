@@ -226,6 +226,26 @@ void displayInventory(PrioQueueTime Q, TIME realTime){
     printf("\n");
 }
 
+void displayInventoryID(PrioQueueTime Q, TIME realTime){
+/* Melakukan display terhadap INVENTORY */
+    PrioQueueTime temp = Q;
+    FoodType val;
+    printf("Daftar isi INVENTORY: \n");
+    if (IsEmptyFood(temp)){
+        printf("\tTidak ada barang dalam INVENTORY\n");
+    } else {
+        while (!IsEmptyFood(temp)){
+            DequeueFood(&temp, &val);
+            printf("\t%d. ",ID(Info(val)));
+            DisplayWordNoEnter(NAMA(Info(val)));
+            printf(" - ");
+            displayTime(MinuteToTIME(TIME_LEFT(val) - TIMEToMinute(realTime)));
+            printf("\n");
+        }
+    }
+    printf("\n");
+}
+
 void IsValidFood (PrioQueueTime *P) {
     // I.S P terdefinisi
     // F.S makanan yang expired dihapus dari P lalu di-print.

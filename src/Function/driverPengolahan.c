@@ -24,7 +24,7 @@ int main(){
         KumpulanTree advancedResep = mergeAdvancedTree(daftarResep);
         
         /* Mendapatkan peta awal simulator */
-        Matrix peta = getPeta("../../bin/peta.txt");
+        Matrix peta = getPeta("../../bin/peta_olah.txt");
         peta = createBorder(peta);
 
         /* Membentuk simulator */
@@ -87,127 +87,32 @@ int main(){
         /*           backNotif untuk menampilkan notifikasi mundur */
         boolean frontNotif;
         boolean backNotif;
+    ListStatik daftar_Makanan = readFileMakananListStatik("../../bin/menumakanan.txt");
+        Makanan val;
+    FoodType vals;
+    Info(vals) = val;
+    TIME_LEFT(vals) = 50;
 
         /* Syarat mulai */
-        boolean x = true;
+        for (int i = 0; i < 20; i++){
+        val = ELMT_LIST_STATIK(daftar_Makanan, i);
+        Info(vals) = val;
+        TIME_LEFT(vals) = 50;
+        EnqueueFood(&UserInventory(sim), vals);
+    }
 
         /* PROGRAM UTAMA */
-        while (x){
 
-            /* Display bentuk simulator saat ini */
-            printf("============================================================================\n");
-            displayBasic(sim,realTime,&Notifikasi,frontNotif);
-            printf("============================================================================\n");
-
-            frontNotif = true;
-            backNotif = !frontNotif;
-            isValid = false;
-
-            printf("Masukkan command: ");
-            STARTKALIMAT();
-            if (isMoveCommand(currentKalimat)){
-                // Menjalankan fungsi MOVE
-                moveCommandV2(&UserPeta(sim),&realTime,currentKalimat,&isValid);
-            
-            } else if (isTeleportCommand(currentKalimat)){
-                // Menjalankan fungsi TELEPORT
-                teleport(&UserPeta(sim), &realTime, currentKalimat, &isValid);
-
-            } else if (isWaitValid(currentKalimat)){
-                // Menjalankan fungsi wait
-                getWaitHour(currentKalimat, &hh, &mm);
-                WAITV2(&realTime,hh,mm);
-                isValid = true;
-            
-            } else if (isKalimatEqual(currentKalimat,exit)){
-                // Menjalankan fungsi EXIT
-                break;
-
-            } else if (isKalimatEqual(currentKalimat,buy)){
-                // Menjalankan fungsi BUY
-                BUY(sim, &buyAbleFood, &DELIVERY, realTime, &isValid);
-                if(isValid) realTime = NextMinute(realTime);
-
-            } else if (isKalimatEqual(currentKalimat,delivery)){
-                // Menjalankan fungsi DELIVERY
-                displayDelivery(DELIVERY, realTime);
-
-            } else if (isKalimatEqual(currentKalimat,mix)){
-                // Menjalankan fungsi MIX
                 MIX(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
-
-            } else if (isKalimatEqual(currentKalimat,chop)){
-                // Menjalankan fungsi CHOP
+                printf("------------------------------------------------\n");
                 CHOP(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
-
-            } else if (isKalimatEqual(currentKalimat,boil)){
-                // Menjalankan fungsi BOIL
+                printf("------------------------------------------------\n");
                 BOIL(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
-
-            } else if (isKalimatEqual(currentKalimat,fry)){
-                // Menjalankan fungsi FRY
+                printf("------------------------------------------------\n");
                 FRY(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
-
-            } else if (isKalimatEqual(currentKalimat,undo)){
-                // Menjalankan fungsi UNDO
-                UNDO(&stack_UTAMA,&stack_REDO);
-                getProses(stack_UTAMA,&realTime,&sim,&DELIVERY);
-                frontNotif = false;
-
-            } else if (isKalimatEqual(currentKalimat,redo)){
-                // Menjalankan fungsi REDO
-                REDO(&stack_UTAMA, &stack_REDO);
-                getProses(stack_UTAMA,&realTime,&sim,&DELIVERY);
-            
-            } else if (isKalimatEqual(currentKalimat,catalog)) { 
-                // Menjalankan fungsi CATALOG
-                CATALOG(daftarMakanan);
-            
-            } else if (isKalimatEqual(currentKalimat,cookbook)){
-                // Menjalankan fungsi COOKBOOK
-                COOKBOOK(daftarResep,daftarMakanan);
-
-            } else if (isKalimatEqual(currentKalimat,rekomendasi)){
-                // Menjalankan fungsi REKOMENDASI
-                Rekomendasi_Makanan = getRekomendasi(daftarResep, sim);
-                displayRekomendasi(Rekomendasi_Makanan, daftarMakanan);
-
-            } else if (isKalimatEqual(currentKalimat,kulkas)){
-                // Menjalankan fungsi KULKAS
-
-
-            } else if (isKalimatEqual(currentKalimat, inventory)){
-                // Mengecek isi dari inventory
-                displayInventory(UserInventory(sim),realTime);
-            
-            } else {
-                printf("== Masukan Tidak Valid == \n");
-            }
-
-            /* Penyimpanan Undo-able proses dalam STACK */
-            /* Jika ada proses VALID maka stack REDO lenyap */
-            if (isValid){
-                createUndoRedoType(&proses,sim,realTime,DELIVERY);
-                PushUndoRedo(&stack_UTAMA,proses);
-                clearProses(&stack_REDO);
-            }
+                printf("------------------------------------------------\n");
 
             
-            /* Pengecekan DELIVERY dan TIME */
-            removeDelivery(&sim,&DELIVERY,realTime,&Notifikasi);
-
-            
-            /* Pengecekan INVENTORY dan TIME */
-            removeExpired(&sim,realTime,&Notifikasi);    
-
-
-            /* Pengoperasian STACK NOTIFIKASI */
-
-
-
-        }
-
-        quit();
         
         
 

@@ -8,9 +8,6 @@
 
 
 int main(){
-    
-        
-        /* Splash Screen dan START */
 
         /* Mendapatkan daftar makanan */
         ListStatik daftarMakanan = readFileMakananListStatik("../../bin/menumakanan.txt");
@@ -24,7 +21,7 @@ int main(){
         KumpulanTree advancedResep = mergeAdvancedTree(daftarResep);
         
         /* Mendapatkan peta awal simulator */
-        Matrix peta = getPeta("../../bin/peta_olah.txt");
+        Matrix peta = getPeta("../../bin/peta_buy.txt");
         peta = createBorder(peta);
 
         /* Membentuk simulator */
@@ -87,35 +84,27 @@ int main(){
         /*           backNotif untuk menampilkan notifikasi mundur */
         boolean frontNotif;
         boolean backNotif;
-    ListStatik daftar_Makanan = readFileMakananListStatik("../../bin/menumakanan.txt");
-        Makanan val;
-    FoodType vals;
-    Info(vals) = val;
-    TIME_LEFT(vals) = 50;
 
         /* Syarat mulai */
-        for (int i = 0; i < 20; i++){
-        val = ELMT_LIST_STATIK(daftar_Makanan, i);
-        Info(vals) = val;
-        TIME_LEFT(vals) = 50;
-        EnqueueFood(&UserInventory(sim), vals);
-    }
+        boolean x = true;
 
-        /* PROGRAM UTAMA */
+        BUY(sim, &buyAbleFood, &DELIVERY, realTime, &isValid);
 
-                MIX(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
-                printf("------------------------------------------------\n");
-                CHOP(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
-                printf("------------------------------------------------\n");
-                BOIL(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
-                printf("------------------------------------------------\n");
-                FRY(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
-                printf("------------------------------------------------\n");
+        printf("-----------------------------------------\n");
 
+        displayDelivery(DELIVERY, realTime);
+        printf("-----------------------------------------\n");
+
+        WAIT(&realTime, 0, 30);
+        printf("-----------------------------------------\n");
             
-        
-        
+            /* Pengecekan DELIVERY dan TIME */
+        removeDelivery(&sim,&DELIVERY,realTime,&Notifikasi);
+        printf("wait 30 menit\n");
 
+        displayInventory(UserInventory(sim), realTime);
+        printf("-----------------------------------------");
+        
 
     return 0;
 }

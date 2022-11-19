@@ -3,7 +3,7 @@
 #ifndef makanan_H
 #define makanan_H
 
-#include "simulator.h"
+#include "../Simulator/simulator.h"
 
 PrioQueueTime createMakanan (char namaFile[]){
     PrioQueueTime Q;

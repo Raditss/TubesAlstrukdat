@@ -1,7 +1,7 @@
 
 #include "../Cookbook/COOKBOOK.h"
-#include "../Function/splash.c"
-#include "../Function/quit.c"
+#include "../SplashScreen/splash.h"
+#include "../QuitScreen/quit.h"
 #include "../Pemesanan/pemesanan.h"
 #include "../Pengolahan/pengolahan.h"
 

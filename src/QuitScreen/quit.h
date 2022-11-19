@@ -1,10 +1,11 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdlib.h>
+#include <stdio.h>
+#ifndef QUIT_H
+#define QUIT_H
 
-void splash()
-{
+void quit(){
     FILE *fptr;
-    fptr=fopen("../../bin/bmo.txt", "r");
+    fptr=fopen("../../bin/bmobye.txt", "r");
     if (fptr == NULL)
     {
         printf("Cannot open file \n");
@@ -22,3 +23,4 @@ void splash()
     fclose(fptr);
 }
 
+#endif

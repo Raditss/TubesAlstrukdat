@@ -1,9 +1,12 @@
-#include <stdlib.h>
-#include <stdio.h>
+#include<stdio.h>
+#include<stdlib.h>
+#ifndef SPLASH_H
+#define SPLASH_H
 
-void quit(){
+void splash()
+{
     FILE *fptr;
-    fptr=fopen("../../bin/bmobye.txt", "r");
+    fptr=fopen("../../bin/bmo.txt", "r");
     if (fptr == NULL)
     {
         printf("Cannot open file \n");
@@ -21,4 +24,4 @@ void quit(){
     fclose(fptr);
 }
 
-
+#endif

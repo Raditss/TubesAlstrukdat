@@ -1,5 +1,6 @@
 
 #include "../Cookbook/COOKBOOK.h"
+#include "../Pemesanan/pemesanan.h"
 #include "../Pengolahan/pengolahan.h"
 
 
@@ -84,11 +85,11 @@ int main(){
         /*           backNotif untuk menampilkan notifikasi mundur */
         boolean frontNotif;
         boolean backNotif;
-    ListStatik daftar_Makanan = readFileMakananListStatik("../../bin/menumakanan.txt");
+        ListStatik daftar_Makanan = readFileMakananListStatik("../../bin/menumakanan.txt");
         Makanan val;
-    FoodType vals;
-    Info(vals) = val;
-    TIME_LEFT(vals) = 50;
+        FoodType vals;
+        Info(vals) = val;
+        TIME_LEFT(vals) = 50;
 
         /* Syarat mulai */
         for (int i = 0; i < 20; i++){
@@ -96,7 +97,7 @@ int main(){
         Info(vals) = val;
         TIME_LEFT(vals) = 50;
         EnqueueFood(&UserInventory(sim), vals);
-    }
+        }
 
         /* PROGRAM UTAMA */
 
@@ -110,7 +111,7 @@ int main(){
                 printf("------------------------------------------------\n");
 
             
-        
+        displayInventory(UserInventory(sim), realTime);
         
 
 

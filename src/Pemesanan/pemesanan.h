@@ -10,8 +10,10 @@ void BUY(Simulator sim,ListStatik *daftar, PrioQueueTime *belanjaan, TIME global
     /* I.S daftar dan belanjaan terdefinisi */
     /* F.S daftar dan belanjaan terdefinisi */
     /* Proses: menghapus makanan dengan id tertentu dari daftar dan menambahkannya ke belanjaan */
+    boolean toko_buka = (Hour(globalTime) * 60 + Minute(globalTime)) > 8*60-1 &&
+                        (Hour(globalTime) * 60 + Minute(globalTime)) < 22*60;
 
-    if (isClose((sim).LokasiPengguna,'T')){
+    if (isClose((sim).LokasiPengguna,'T') && toko_buka){
         printf("======================\n");
         printf("=        BUY         =\n");
         printf("======================\n");
@@ -33,9 +35,11 @@ void BUY(Simulator sim,ListStatik *daftar, PrioQueueTime *belanjaan, TIME global
         }
 
 
-    }
-    else{
+    } else if (!isClose((sim).LokasiPengguna,'T')){
         printf("Anda tidak berada di toko!\n");
+    } else {
+        printf("Toko tutup\n");
+        printf("Toko mulai buka pukul 08:00 dan tutup pukul 22:00\n");
     }
 }
 

@@ -85,7 +85,8 @@ int main(){
 
         /* Syarat mulai */
         boolean x = true;
-
+        WAIT(&realTime, 8, 0);
+        printf("wait 8 jam agar toko buka\n");
         BUY(sim, &buyAbleFood, &DELIVERY, realTime, &isValid);
 
         printf("-----------------------------------------\n");

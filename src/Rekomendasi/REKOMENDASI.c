@@ -1,4 +1,4 @@
-#include "../StackRekomendasi/REKOMENDASI.h"
+#include "REKOMENDASI.h"
 
 /* Driver untuk REKOMENDASI.h */
 

@@ -56,11 +56,6 @@ void DisplayMakanan (Makanan food) {
     DisplayWord(LOC(food));
 }
 
-void DealocMakanan (Makanan *mkn) {
-    // I.S mkn terdefinisi
-    // F.S mkn terdealokasi
-    free(mkn);
-}
 
 boolean isFoodEqual (Makanan food1, Makanan food2){
     /* Mengembalikan true jika kedua makanan bernilai sama */

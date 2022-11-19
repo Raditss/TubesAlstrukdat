@@ -4,6 +4,7 @@
 #include "UNDO_REDO.h"
 
 
+
 void BUY(Simulator sim,ListStatik *daftar, PrioQueueTime *belanjaan, TIME globalTime, boolean *isValid){
     /* Membeli makanan dengan id tertentu */
     /* I.S daftar dan belanjaan terdefinisi */

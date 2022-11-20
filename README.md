@@ -2,13 +2,13 @@
 program simulasi memasak berbasis CLI (command-line interface) yang dibuat dalam bahasa C.
 
 ## Kelompok E (E for EZ)
-| Nama Anggota   | NIM |
-| :---        |    :----:   | 
-| Jason Rivalino| 13521008 | 
-| Hidayatullah Wildan Ghaly B.   | 13521015 |  
-| Raditya Naufal Abiyu | 13521022 | 
-| M. Malik I. Baharsyah | 13521029 |  
-| Jauza Lathifah Annassalafi | 13521030 |  
+| Nama Anggota   | NIM | Kontribusi|
+| :---        |    :----:   |   :----:   | 
+| Jason Rivalino| 13521008 | Readfile makanan, driver, dataset makanan, dataset resep, merancang tree untuk program, laporan, kulkas|
+| Hidayatullah Wildan Ghaly B.   | 13521015 | Simulator, Tree, Peta, Rekomendasi, Cookbook, Catalog, Point, Undo-Redo, Queue, Mesin Input, List Statik, Notifikasi, Driver, Kulkas. |
+| Raditya Naufal Abiyu | 13521022 | Splash screen intro, Splash screen exit, pemesanan, delivery, buy, merapikan struktur program, bug hunting, driver, laporan, kulkas|
+| M. Malik I. Baharsyah | 13521029 | ADT dan driver Makanan, pengolahan (mix, fry, chop, boil), laporan, kulkas| 
+| Jauza Lathifah Annassalafi | 13521030 | ADT dan driver Time, Wait dan driver, bug tester, laporan, kulkas| 
 
 ## ADT yang Digunakan
 - ADT Sederhana<br/>
@@ -26,3 +26,8 @@ program simulasi memasak berbasis CLI (command-line interface) yang dibuat dalam
 - Run MAIN.c
 - Atau bisa juga dengan memasukkan command "gcc- o MAIN.c main" pada terminal
 - Apabila splash screen terlihat tidak jelas maka coba jalankan di mode debug dalam vscode
+
+## Status Pengerjaan
+- Spesifikasi wajib (100%)
+- Spesifikasi bonus (- autoBNMO)
+

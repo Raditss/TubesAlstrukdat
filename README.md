@@ -32,6 +32,29 @@ program simulasi memasak berbasis CLI (command-line interface) yang dibuat dalam
 - gcc MAIN.c -o getEXE
 - .\getExe
 
+## Daftar Command
+- START
+- EXIT
+- BUY
+- DELIVERY
+- WAIT
+- MOVE NORTH
+- MOVE SOUTH
+- MOVE EAST
+- MOVE WEST
+- TELEPORT
+- MIX
+- FRY
+- BOIL
+- CHOP
+- INVENTORY
+- REKOMENDASI
+- KULKAS
+- COOKBOOK
+- CATALOG
+- UNDO
+- REDO
+
 ## Status Pengerjaan
 - Spesifikasi wajib (100%)
 - Spesifikasi bonus (- autoBNMO)

@@ -20,6 +20,14 @@ program simulasi memasak berbasis CLI (command-line interface) yang dibuat dalam
 - ADT Queue<br/>
 - ADT Stack<br/>
 - ADT Tree<br/>
+- ADT Time<br/>
+- ADT Point<br/>
+- ADT Makanan<br/>
+- ADT Undo-redp<br/>
+- ADT Notifikasi<br/>
+- ADT Kalimat<br/>
+- ADT Rekomendasi<br/>
+- ADT Simulator<br/>
 
 ## Cara Menjalankan Program (vscode)
 - Buka src/app

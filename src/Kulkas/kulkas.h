@@ -5,7 +5,7 @@
 
 #include "../QueueFood/queuefood.h"
 
-#define CAPACITY_MATRIKS_KULKAS 10
+#define CAPACITY_MATRIKS_KULKAS 20
 #define IdxType int
 /* Definisi Kulkas */
 typedef struct
@@ -40,7 +40,7 @@ boolean isValidIndeksKulkas(int baris, int kolom)
 
 void displayKulkas(Kulkas k)
 { /* Melakukan display isi Kulkas */
-    printf("____________\n");
+    printf("______________________\n");
     for (IdxType i = 0; i < CAPACITY_MATRIKS_KULKAS; i++)
     {
         printf("|");
@@ -56,7 +56,7 @@ void displayKulkas(Kulkas k)
 
         printf("|\n");
     }
-    printf("------------\n");
+    printf("----------------------\n");
 }
 
 boolean positionAvaliable(Makanan isi, Kulkas *k, int baris, int kolom)
@@ -273,7 +273,7 @@ void KULKAS(Simulator *sim, Kulkas *k, TIME *realTime, boolean *IsValid, NOTIF_S
                 FoodType val = Elmt(inventory, ((input - 1) + Head(inventory)) % CAPACITY);
 
                 Makanan isi = val.food;
-                isi.expired = MinuteToTIME(TIMEToMinute(*realTime) - (val.time_left));
+                isi.expired = MinuteToTIME((val.time_left) - TIMEToMinute(*realTime));
 
                 *IsValid = false;
 

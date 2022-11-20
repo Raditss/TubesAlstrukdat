@@ -5,7 +5,7 @@
 #define _QUEUE_FOOD_
 
 #define NilFood -1
-#define CAPACITY 100
+#define CAPACITY 1000
 
 typedef struct
 {

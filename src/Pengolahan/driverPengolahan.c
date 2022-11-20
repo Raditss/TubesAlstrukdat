@@ -4,7 +4,6 @@
 #include "../Pengolahan/pengolahan.h"
 
 
-
 int main(){
     
         
@@ -35,40 +34,12 @@ int main(){
         TIME realTime;
         CreateTime(&realTime,0,0,0);
 
-        /* Melakukan pembuatan kalimat pembanding */
-        Kalimat start = wordToKalimat(strToWord("START."));
-        Kalimat exit = wordToKalimat(strToWord("EXIT."));
-        Kalimat buy = wordToKalimat(strToWord("BUY."));
-        Kalimat delivery = wordToKalimat(strToWord("DELIVERY."));
-        Kalimat mix = wordToKalimat(strToWord("MIX."));
-        Kalimat chop = wordToKalimat(strToWord("CHOP."));
-        Kalimat boil = wordToKalimat(strToWord("BOIL."));
-        Kalimat fry = wordToKalimat(strToWord("FRY."));
-        Kalimat undo = wordToKalimat(strToWord("UNDO."));
-        Kalimat redo = wordToKalimat(strToWord("REDO."));
-        Kalimat catalog = wordToKalimat(strToWord("CATALOG."));
-        Kalimat cookbook = wordToKalimat(strToWord("COOKBOOK."));
-        Kalimat rekomendasi = wordToKalimat(strToWord("REKOMENDASI."));
-        Kalimat kulkas = wordToKalimat(strToWord("KULKAS."));
-        Kalimat inventory = wordToKalimat(strToWord("INVENTORY."));
-
         /* Deklarasi REKOMENDASI MAKANAN */
         Rekomendasi_STACK Rekomendasi_Makanan;
 
         /* Deklarasi DELIVERY */
         PrioQueueTime DELIVERY;
         MakeEmptyFood(&DELIVERY, 200);
-
-        /* Deklarasi STACK UNDO REDO */        
-        Stack_Undo_Redo stack_UTAMA;
-        Stack_Undo_Redo stack_REDO;
-        CreateEmptyUndoRedo(&stack_UTAMA);
-        CreateEmptyUndoRedo(&stack_REDO);
-
-        /* Deklarasi PROSES AWAL */
-        UndoRedoType proses;
-        createUndoRedoType(&proses,sim,realTime,DELIVERY);
-        PushUndoRedo(&stack_UTAMA,proses);
 
         /* Deklarasi Validitas Proses */
         boolean isValid;
@@ -101,14 +72,14 @@ int main(){
 
         /* PROGRAM UTAMA */
 
-                MIX(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
-                printf("------------------------------------------------\n");
-                CHOP(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
-                printf("------------------------------------------------\n");
-                BOIL(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
-                printf("------------------------------------------------\n");
-                FRY(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
-                printf("------------------------------------------------\n");
+        MIX(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
+        printf("------------------------------------------------\n");
+        CHOP(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
+        printf("------------------------------------------------\n");
+        BOIL(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
+        printf("------------------------------------------------\n");
+        FRY(&sim, daftarResep, daftarMakanan, &realTime, &Notifikasi, &isValid);
+        printf("------------------------------------------------\n");
 
             
         

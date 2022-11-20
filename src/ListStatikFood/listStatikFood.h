@@ -10,7 +10,7 @@
 #include "../WordMachine/wordmachine.h"
 
 /*  Kamus Umum */
-#define CAPACITY_LIST_FOOD 100
+#define CAPACITY_LIST_FOOD 1000
 /* Kapasitas penyimpanan */
 #define IDX_MIN 0
 /* Indeks minimum list */

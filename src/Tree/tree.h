@@ -17,7 +17,7 @@ typedef struct node {
 #define CHILD(p)        (p)->child
 #define SIBLING(p)      (p)->sibling
 
-#define CAPACITY_TREE   50   /* kapasitas penyimpanan */
+#define CAPACITY_TREE   1000   /* kapasitas penyimpanan */
 
 typedef Address Akar;
 typedef struct

@@ -3,7 +3,7 @@
 #ifndef _UNDO_REDO_H
 #define _UNDO_REDO_H
 
-#define MaxUNDO 200
+#define MaxUNDO 1000
 
 typedef struct
 {

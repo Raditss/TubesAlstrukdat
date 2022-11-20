@@ -8,7 +8,7 @@
 #include "../Boolean/boolean.h"
 
 #define Nil -1
-#define MaxEl 100
+#define MaxEl 1000
 /* Nil adalah stack dengan elemen kosong . */
 
 typedef int infotype;

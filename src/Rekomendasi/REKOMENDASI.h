@@ -7,7 +7,7 @@
 #ifndef REKOMENDASI_H
 #define REKOMENDASI_H
 
-#define CAPACITY_REKOMENDASI 200
+#define CAPACITY_REKOMENDASI 1000
 
 typedef int ElType_Rekomendasi;
 typedef struct

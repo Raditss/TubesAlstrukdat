@@ -5,7 +5,7 @@
 #ifndef STACK_NOTIFIKASI_H
 #define STACK_NOTIFIKASI_H
 
-#define MaxNotif 100
+#define MaxNotif 1000
 
 #include "../WordMachine/wordmachine.h"
 

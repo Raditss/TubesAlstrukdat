@@ -21,11 +21,16 @@ program simulasi memasak berbasis CLI (command-line interface) yang dibuat dalam
 - ADT Stack<br/>
 - ADT Tree<br/>
 
-## Cara Menjalankan Program
+## Cara Menjalankan Program (vscode)
 - Buka src/app
 - Run MAIN.c
-- Atau bisa juga dengan memasukkan command "gcc- o MAIN.c main" pada terminal
 - Apabila splash screen terlihat tidak jelas maka coba jalankan di mode debug dalam vscode
+
+## Cara Menjalankan Program (terminal)
+- cd src
+- cd App
+- gcc MAIN.c -o getEXE
+- .\getExe
 
 ## Status Pengerjaan
 - Spesifikasi wajib (100%)
